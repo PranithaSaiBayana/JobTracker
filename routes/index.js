@@ -202,50 +202,6 @@ module.exports = {
         });
     },
 
-    updatejoblisting: (req, res) => {
-
-        let jobdescriptionid = req.body.jobdescriptionId;
-
-        let reqID = req.body.reqid;
-        let joblocation = req.body.joblocation;
-        let experience = req.body.experince;
-        let expecteddate = req.body.expecteddate;
-        let locationfelx = req.body.locaflex;
-        let jobdescription = req.body.jobdescription;
-        let bussinessunit = req.body.bussinessunit;
-        let salesregion = req.body.salesregion;
-        let salesrep = req.body.salerep;
-        let status = req.body.status;
-        let primaryskill = req.body.primaryskill;
-        let secondaryskill = req.body.secondaryskill;
-        //  let createdby = req.body.cby_edit;
-        let updateby = req.body.updateby;
-        let noofpositions = req.body.noofpos;
-        let role = req.body.role;
-        // let createddate = req.body.cbydate_edit;
-        let updatedtime = req.body.updatedate;
-        let dateofreq = req.body.dateofreq;
-        let customers = req.body.customer;
-        let jdcomments = req.body.jdcomments;
-        let bucomments = req.body.bucomments;
-
-
-        let query = "CALL procUpdatejobdescription('" + jobdescriptionid + "','" + reqID + "','" + role + "','" + noofpositions + "','" + dateofreq + "','" + experience +
-            "','" + primaryskill + "','" + secondaryskill + "','" + expecteddate + "','" + locationfelx + "','" + customers + "','" + status + "','" + bussinessunit + "','" + salesregion +
-            "','" + salesrep + "','" + joblocation + "','" + jobdescription + "','" + jdcomments + "','" + bucomments + "','" + updateby + "','" + updatedtime + "')";
-
-
-        db.query(query, (err, result) => {
-            if (err) {
-                ;
-                return res.status(500).send(err);
-
-            }
-            res.status(200).json(result);
-
-        });
-    },
-
     addjd: (req, res) => {
         let Requirement = req.body.Requirement;
         let Role = req.body.Role;
@@ -283,6 +239,49 @@ module.exports = {
             if (err) {
              
                 return res.status(500).send(err);
+            }
+            res.status(200).json(result);
+
+        });
+    },
+
+    updatejoblisting: (req, res) => {
+
+        let jobdescriptionid = req.body.jobdescriptionId;
+        let reqID = req.body.reqid;
+        let role = req.body.role;
+        let noofpositions = req.body.noofpos;
+        let duration = req.body.duration;
+        let dateofreq = req.body.dateofreq;      
+        let experience = req.body.experince;
+        let primaryskill = req.body.primaryskill;
+        let secondaryskill = req.body.secondaryskill;
+        let closedate = req.body.closedate;
+        let locationfelx = req.body.locaflex;
+        let customers = req.body.customer;
+        let status = req.body.status;
+        let bussinessunit = req.body.bussinessunit;
+        let salesregion = req.body.salesregion;
+        let salesrep = req.body.salerep;
+        let joblocation = req.body.joblocation;
+        let jobdescription = req.body.jobdescription;       
+        //  let createdby = req.body.cby_edit;
+        let updateby = req.body.updateby;
+        // let createddate = req.body.cbydate_edit;
+        let updatedtime = req.body.updatedate;
+        let jdcomments = req.body.jdcomments;
+        let bucomments = req.body.bucomments;
+
+
+        let query = "CALL procUpdatejobdescription('" + jobdescriptionid + "','" + reqID + "','" + role + "','" + noofpositions + "','" + duration + "','" + dateofreq + "','" + experience +
+            "','" + primaryskill + "','" + secondaryskill + "','" + closedate + "','" + locationfelx + "','" + customers + "','" + status + "','" + bussinessunit + "','" + salesregion +
+            "','" + salesrep + "','" + joblocation + "','" + jobdescription + "','" + bucomments + "','" + jdcomments + "','" + updateby + "','" + updatedtime + "')";
+
+        db.query(query, (err, result) => {
+            if (err) {
+        
+                return res.status(500).send(err);
+                
             }
             res.status(200).json(result);
 

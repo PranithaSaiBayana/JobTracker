@@ -24,9 +24,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
 		integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
 </head>
@@ -37,24 +37,28 @@
 
 		}
 	}
+
 	.select2-container--default .select2-selection--single {
-	width: 162px;
-	border: 1px solid #ced4da;
-    border-radius: 5px;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: #888 transparent transparent transparent;
-    color:black;
-    left: 69px;
-   
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: black;
-   
-}
-.select2-container--open .select2-dropdown--below {
-	width: 159px !important;
-}
+		width: 162px;
+		border: 1px solid #ced4da;
+		border-radius: 5px;
+	}
+
+	.select2-container--default .select2-selection--single .select2-selection__arrow b {
+		border-color: #888 transparent transparent transparent;
+		color: black;
+		left: 69px;
+
+	}
+
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+		color: black;
+
+	}
+
+	.select2-container--open .select2-dropdown--below {
+		width: 159px !important;
+	}
 
 
 	#lttsInterviewBtn,
@@ -237,7 +241,7 @@
 	#jobtable_filter,
 	#profiletable_filter,
 	#vendortable_filter {
-		margin-left:265px !important;
+		margin-left: 265px !important;
 	}
 
 	.dataTables_length {
@@ -245,11 +249,12 @@
 	}
 
 	div.dataTables_filter input {
-    width: 137px;
-    margin: -22px;
-    margin-left: 50px;
-    margin-top: -18px;
-}
+		width: 137px;
+		margin: -22px;
+		margin-left: 50px;
+		margin-top: -18px;
+	}
+
 	.body {
 		background: #f5f3e7;
 	}
@@ -281,18 +286,9 @@
  		background-color: black;
 	} */
 
-	.test{
-
-		-moz-opacity: 0.6;
-
-		-ms-opacity: 0.6;
-
-		-webkit-opacity: 0.6;
-
-		opacity: 0.6;
-
-}
-
+	tr:hover {
+		background-color:#f5f5f5;
+		}
 </style>
 
 <script type="text/javascript">
@@ -439,7 +435,6 @@ $(document).ready(function() {
 	$('.js-example-basic-single').select2();
 	
 });
-
 
 
 	var svg = document.getElementsByTagName("svg");
@@ -711,6 +706,7 @@ $(document).ready(function() {
 						'<option value="' + result[0][i].jobstatusid + '">' + result[0][i].jobstatus + '</option>';
 				}
 				$("#jstatus").html(jobstatus);
+				$("#jstatusedit").html(jobstatus);
 				//$("#statuspedit").html(jobstatusdrop);
 			}
 		});
@@ -855,11 +851,11 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	function profiletabstatedropdown() {
 
 		let profilecountry = $('[name="p_country"]').find(":selected").val();
-	
+
 		var profilestatebycountry = "";
 		var url = "http://localhost:2000/statebycountry/" + profilecountry;
 		$.ajax({
@@ -876,7 +872,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	function highestqualdropdown() {
 		var highestqual = "";
 		var url = "http://localhost:2000/highestqual";
@@ -897,7 +893,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	function currentlocationdropdown() {
 		var currentlocation = "";
 		var url = "http://localhost:2000/curentlocation";
@@ -907,7 +903,7 @@ $(document).ready(function() {
 			success: function (result) {
 
 				//            currentlocation = currentlocation+"<option>--Select--</option>";
-			//	currentlocation = currentlocation + "<option style='display:none;'></option>";
+				//	currentlocation = currentlocation + "<option style='display:none;'></option>";
 
 				for (var i = 0; i < result[0].length; i++) {
 					currentlocation = currentlocation +
@@ -926,7 +922,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	function profilestatusdropdown() {
 		var profilestatus = "";
 		var url = "http://localhost:2000/profilestatus";
@@ -993,112 +989,7 @@ $(document).ready(function() {
 
 	}
 
-	function joblistingdetails() {
-		var tableData = "";
 
-		var url = "http://localhost:2000/joblistingdetails";
-		$.ajax({
-			url: url,
-			type: "GET",
-			success: function (result) {
-			
-				for (var i = 0; i < result[0].length; i++) {
-					
-					var jobdescriptionID = "\"" + result[0][i].jobdescriptionid + "\"";
-					tableData = tableData + "  <tr class='content'> " +
-						//"<td id='' hidden>" + result[0][i].contactid + "</td>" +
-						"<td >" + result[0][i].requirmentid + "</td>" +
-						"<td >" + result[0][i].noofpositions + "</td>" +
-						"<td >" + result[0][i].experience + "</td>" +
-						"<td >" + result[0][i].role + "</td>" +
-						// "<td >" + result[0][i].primaryskills + "</td>" +
-						"<td >" + result[0][i].jobstatus + "</td>" +
-						"<td >" + result[0][i].customers + "</td>" +
-						"<td >" + "<a>" + "<i class='far fa-edit' data-target='#jobModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick='jobdisplay(" + jobdescriptionID + ")' style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
-						"</tr>";
-				}
-				$("#jobtable tbody").html(tableData);
-				// $("#joblistingbody").html(tableData);
-				$("#jobtable").DataTable();
-
-			}
-		});
-	}
-
-	function jobdisplay(i) {
-		// $("#updatehide").hide();
-		var url = "http://localhost:2000/joblisting/" + i;
-
-		$.ajax({
-			url: url,
-			type: "GET",
-			success: function (result) {
-
-
-				$("#jdiddisplayhidden").text(result[0][0].jobdescriptionid);
-
-				$("#reqiddisplay").text(result[0][0].requirmentid);
-				$("#jobtitleedit").val(result[0][0].jdtitle);
-				
-				$("#jdurationedit").val(result[0][0].duration);
-				$("#jlidedit").val(result[0][0].joblocation);
-				$("#expedit").val(result[0][0].experience);
-				$("#lfedit").val(result[0][0].locationflexibility);
-				$("#jdedit").val(result[0][0].jobdescription);
-				$("buedit").val(result[0][0].bussinessunit).attr('selected', 'selected');
-				$("#sregionedit").val(result[0][0].salesregions).attr('selected', 'selected');
-				$("#srepedit").val(result[0][0].salesrep).attr('selected', 'selected');
-				$("#statuspedit").val(result[0][0].status).attr('selected', 'selected');;
-				$("#psedit").val(result[0][0].primaryskills);
-				$("#ssedit").val(result[0][0].secondaryskills);
-				$("#cbyedit").val(result[0][0].createdby);
-				$("#ubyedit").val(result[0][0].updateby);
-				$("#nposedit").val(result[0][0].noofpositions);
-				$("#roleedit").val(result[0][0].role);
-				$("#cbydateedit").val(result[0][0].createddate.slice(0, 10));
-				$("#ubydateedit").val(result[0][0].updatedtime.slice(0, 10));
-				$("#datereqedit").val(result[0][0].dateofreq.slice(0, 10));
-				$("#expdateedit").val(result[0][0].closedate.slice(0, 10));
-				$("#custedit").val(result[0][0].customers).attr('selected', 'selected');
-				$("#JD_comment").val(result[0][0].jdcomments);
-				$("#BU_comment").val(result[0][0].bucomments);
-			}
-		});
-	}
-
-	function enablejoblist() {
-		
-		$("#updatehide").show();
-		// $("#edithide").hide();
-
-		$("#jlidedit").attr('disabled', false);
-		$("#expedit").attr('disabled', false);
-		$("#lfedit").attr('disabled', false);
-		$("#jdedit").attr('disabled', false);
-		$("#buedit").attr('disabled', false);
-		$("#sregionedit").attr('disabled', false);
-		$("#srepedit").attr('disabled', false);
-		$("#statuspedit").attr('disabled', false);
-		$("#psedit").attr('disabled', false);
-		$("#ssedit").attr('disabled', false);
-		$("#cbyedit").attr('disabled', false);
-		$("#ubyedit").attr('disabled', false);
-		$("#nposedit").attr('disabled', false);
-		$("#roleedit").attr('disabled', false);
-		$("#cbydateedit").attr('disabled', false);
-		$("#ubydateedit").attr('disabled', false);
-		$("#datereqedit").attr('disabled', false);
-		$("#expdateedit").attr('disabled', false);
-		$("#custedit").attr('disabled', false);
-		$("#JD_comment").attr('disabled', false);
-		$("#BU_comment").attr('disabled', false);
-		$("#roleleveledit").attr('disabled', false);
-		$("#jdurationedit").attr('disabled', false);
-		$("#reqclosedateedit").attr('disabled', false);
-		$("#jstatusedit").attr('disabled', false);
-		$("#jobtitleedit").attr('disabled', false);
-
-	}
 
 	function addjd() {
 
@@ -1121,7 +1012,7 @@ $(document).ready(function() {
 		var salesrepid = $('[name="sale_rep"]').val();
 		var joblocation = $('[name="job_location"]').val();
 		var jDescription = $('[name="job_description"]').val();
-		var buComments = $('[name="buComments"]').val();
+		var buComments = $('[name="bu_comments"]').val();
 		var jdComments = $('[name="jd_comments"]').val();
 		var createdby = 'Admin';
 		// var createdate = $('[name="cust_edit"]').val();
@@ -1184,6 +1075,143 @@ $(document).ready(function() {
 		// }
 	}
 
+	function joblistingdetails() {
+		var tableData = "";
+
+		var url = "http://localhost:2000/joblistingdetails";
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function (result) {
+
+				for (var i = 0; i < result[0].length; i++) {
+					
+					var jobdescriptionID = "\"" + result[0][i].jobdescriptionid + "\"";
+					tableData = tableData + "  <tr class='content' data-target='#jobModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick='jobdisplay(" + jobdescriptionID + ")'> " +
+						//"<td id='' hidden>" + result[0][i].contactid + "</td>" +
+						"<td >" + result[0][i].requirmentid + "</td>" +
+						"<td >" + result[0][i].role + "</td>" +
+						"<td >" + result[0][i].noofpositions + "</td>" +
+						"<td >" + result[0][i].experience + "</td>" +
+						"<td >" + result[0][i].jdtitle + "</td>" +
+						"<td >" + result[0][i].duration + "</td>" +
+						"<td >" + result[0][i].primaryskills + "</td>" +
+						"<td >" + result[0][i].secondaryskills + "</td>" +
+						"<td >" + result[0][i].jobstatus + "</td>" +
+						"<td >" + result[0][i].dateofreq + "</td>" +
+						"<td >" + result[0][i].closedate + "</td>" +
+						"<td >" + result[0][i].customers + "</td>" +
+						"<td >" + result[0][i].bussinessunit + "</td>" +
+						"<td >" + result[0][i].salesregions + "</td>" +
+						"<td >" + result[0][i].salesrep + "</td>" +
+						"<td >" + result[0][i].joblocation + "</td>" +
+						"<td >" + result[0][i].locationflexibility + "</td>" +
+						"<td >" + result[0][i].jobdescription + "</td>" +
+						"<td >" + result[0][i].createdby + "</td>" +
+						"<td >" + result[0][i].createddate + "</td>" +
+						"<td >" + result[0][i].updateby + "</td>" +
+						"<td >" + result[0][i].updatedtime + "</td>" +
+						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#jobModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick='jobdisplay(" + jobdescriptionID + ")' style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
+						"</tr>";
+				}
+				$("#jobtable tbody").html(tableData);
+				// $("#joblistingbody").html(tableData);
+				$("#jobtable").DataTable();
+
+			}
+		});
+	}
+
+	function jobdisplay(i) {
+		// $("#updatehide").hide();
+		var url = "http://localhost:2000/joblisting/" + i;
+
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function (result) {
+
+				if (result[0][0].bucomments == undefined) {
+					console.log(result[0][0].bucomments);
+					result[0][0].bucomments == ""
+				}
+
+
+				if (result[0][0].Locationflex == 'Y') {
+					$("#lfedity").prop('checked', true);
+
+				}
+				else if (result[0][0].Locationflex == 'N') {
+					$("#lfeditn").prop('checked', true);
+				}
+
+				$("#jdiddisplayhidden").text(result[0][0].jobdescriptionid);
+				$("#reqiddisplay").text(result[0][0].requirmentid);
+				$("#jobtitleedit").val(result[0][0].jdtitle);
+				$("#jlidedit").val(result[0][0].joblocation);
+				$("#expedit").val(result[0][0].experience);
+				$("#lfedit").val(result[0][0].locationflexibility);
+				$("#nposedit").val(result[0][0].noofpositions);
+				$("#roleedit").val(result[0][0].role);
+				$("#jdedit").val(result[0][0].jobdescription);
+				$("#custedit").val(result[0][0].customers).attr('selected', 'selected');
+				$("#buedit").val(result[0][0].bussinessunit).attr('selected', 'selected');
+				$("#sregionedit").val(result[0][0].salesregions).attr('selected', 'selected');
+				$("#srepedit").val(result[0][0].salesrep).attr('selected', 'selected');
+				$("#jdurationedit").val(result[0][0].duration);
+				$("#jstatusedit").val(result[0][0].jobstatus).attr('selected', 'selected');
+				$("#datereqedit").val(result[0][0].dateofreq.slice(0, 10));
+				$("#closedateedit").val(result[0][0].closedate.slice(0, 10));
+				$("#psedit").val(result[0][0].primaryskills);
+				$("#ssedit").val(result[0][0].secondaryskills);
+				$("#cbyedit").val(result[0][0].createdby);
+				$("#ubyedit").val(result[0][0].updateby);
+				$("#cbydateedit").val(result[0][0].createddate.slice(0, 10));
+				$("#ubydateedit").val(result[0][0].updatedtime.slice(0, 10));
+				$("#jdcomment").val(result[0][0].jdcomments);
+				$("#bucomment").val(result[0][0].bucomments);
+
+			}
+
+		});
+
+	}
+
+	function enablejoblist() {
+
+		$("#updatehide").show();
+		// $("#edithide").hide();
+
+		$("#jlidedit").attr('disabled', false);
+		$("#expedit").attr('disabled', false);
+		$("#lfedit").attr('disabled', false);
+		$("#jdedit").attr('disabled', false);
+		$("#buedit").attr('disabled', false);
+		$("#sregionedit").attr('disabled', false);
+		$("#srepedit").attr('disabled', false);
+		$("#statuspedit").attr('disabled', false);
+		$("#psedit").attr('disabled', false);
+		$("#ssedit").attr('disabled', false);
+		$("#cbyedit").attr('disabled', false);
+		$("#ubyedit").attr('disabled', false);
+		$("#nposedit").attr('disabled', false);
+		$("#roleedit").attr('disabled', false);
+		$("#cbydateedit").attr('disabled', false);
+		$("#ubydateedit").attr('disabled', false);
+		$("#datereqedit").attr('disabled', false);
+		$("#closedateedit").attr('disabled', false);
+		$("#custedit").attr('disabled', false);
+		$("#jdcomment").attr('disabled', false);
+		$("#bucomment").attr('disabled', false);
+		$("#roleleveledit").attr('disabled', false);
+		$("#jdurationedit").attr('disabled', false);
+		$("#reqclosedateedit").attr('disabled', false);
+		$("#jstatusedit").attr('disabled', false);
+		$("#jobtitleedit").attr('disabled', false);
+
+	}
+
+
 	function updatejd() {
 
 		// $("#edithide").show();
@@ -1193,24 +1221,24 @@ $(document).ready(function() {
 		var reqid = $('[name="reqid_display"]').text();
 		var joblocation = $('[name="jlid_edit"]').val();
 		var experience = $('[name="exp_edit"]').val();
-		var expecteddate = $('[name="expdate_edit"]').val();
-		var locaflex = $('[name="lf_edit"]').val();
-		var jobdescription = $('[name="jd_edit"]').val();
+		var dateofreq = $('[name="datereq_edit"]').val();
+		var closedate = $('[name="closedate_edit"]').val();
+		var locaflex = $('input[name=lf_edit]:checked').val();
+		var noofpos = $('[name="npos_edit"]').val();
+		var duration = $('[name="jduration_edit"]').val();
+		var role = $('[name="role_edit"]').val();
+		var customer = $('[name="cust_edit"]').val();
 		var bussinessunit = $('[name="bu_edit"]').val();
 		var salesregion = $('[name="sregion_edit"]').val();
 		var salerep = $('[name="srep_edit"]').val();
-		var status = $('[name="statusp_edit"]').val();
+		var status = $('[name="jstatus_edit"]').val();
 		var primaryskill = $('[name="ps_edit"]').val();
 		var secondaryskill = $('[name="ss_edit"]').val();
+		var jobdescription = $('[name="jd_edit"]').val();
 		var updateby = $('[name="uby_edit"]').val();
-		var noofpos = $('[name="npos_edit"]').val();
-		var role = $('[name="role_edit"]').val();
 		var updatedate = $('[name="ubydate_edit"]').val();
-		var dateofreq = $('[name="datereq_edit"]').val();
-		var customer = $('[name="cust_edit"]').val();
-		var jdcomments = $('[name="jdcomments"]').val();
-		var bucomments = $('[name="bucomments"]').val();
-
+		var jdcomments = $('[name="jd_comments"]').val();
+		var bucomments = $('[name="bu_comments"]').val();
 
 		var data = {
 
@@ -1218,21 +1246,22 @@ $(document).ready(function() {
 			"reqid": reqid,
 			"joblocation": joblocation,
 			"experince": experience,
-			"expecteddate": expecteddate,
+			"dateofreq": dateofreq,
+			"closedate": closedate,
 			"locaflex": locaflex,
-			"jobdescription": jobdescription,
+			"noofpos": noofpos,
+			"role": role,
+			"duration": duration,
+			"customer": customer,
 			"bussinessunit": bussinessunit,
 			"salesregion": salesregion,
 			"salerep": salerep,
 			"status": status,
 			"primaryskill": primaryskill,
 			"secondaryskill": secondaryskill,
+			"jobdescription": jobdescription,
 			"updateby": updateby,
-			"noofpos": noofpos,
-			"role": role,
 			"updatedate": updatedate,
-			"dateofreq": dateofreq,
-			"customer": customer,
 			"jdcomments": jdcomments,
 			"bucomments": bucomments
 
@@ -1258,97 +1287,8 @@ $(document).ready(function() {
 
 	}
 
-	function profileslistingdetails() {
-
-		var tableData = "";
-
-		var url = "http://localhost:2000/profileslistingdetails";
-		
-		$.ajax({
-			url: url,
-			type: "GET",
-			success: function (result) {
-				
-				for (var i = 0; i < result[0].length; i++) {
-				
-					var profileID = "\"" + result[0][i].profileid + "\"";
-					var statusId = "\"" + result[0][i].status + "\"";
-
-					tableData = tableData + "  <tr> " +
-
-						"<td >" + result[0][i].jobreqcode + "</td>" +
-						"<td >" + result[0][i].pjobtitle + "</td>" +
-						"<td >" + result[0][i].firstname + "&nbsp" + result[0][i].lastname + "</td>" +
-						"<td >" + result[0][i].skillset + "</td>" +
-						"<td >" + result[0][i].experince + "</td>" +
-						"<td >" + result[0][i].status + "</td>" +
-						// "<td >" + result[0][i].pvendorname+ "</td>" +
-						"<td >" + "<a>" + "<i class='far fa-edit' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' style='font-size: 20px;color:black;position:relative;left:3%;'></i>" + "</a>" + "</td>" +
-
-						"</tr>";
-
-				}
-
-				// $("#profileslistingbody").html(tableData);
-				$("#profiletable tbody").html(tableData);
-
-				$("#profiletable").DataTable();
-
-			}
-		});
-	}
-
-	function profilesdisplay(i) {
-		// $("#updateeditprofile").hide();
-		var url = "http://localhost:2000/profilelisting/" + i;
-
-		$.ajax({
-			url: url,
-			type: "GET",
-			success: function (result) {
-	
-	  if(result[0][0].Resignation=='Y'){
-		$("#editresignedy").prop('checked', true);
-		
-	  }
-	  else if(result[0][0].Resignation=='N'){
-		$("#editresignedn").prop('checked', true);
-	  }
-				$("#editprofilehiddenId").text(result[0][0].profileid);
-				$("#pprofileid").text(result[0][0].profileid);
-				$("#peditjobrecid").text(result[0][0].jobreqcode);
-				$("#peditfirstname").val(result[0][0].firstname);
-				$("#peditlastname").val(result[0][0].lastname);
-				$("#peditemail").val(result[0][0].email);
-				$("#peditmobile").val(result[0][0].mobile);
-				$("#peditdob").val(result[0][0].dob.slice(0, 10));
-				$("#peditcity").val(result[0][0].city);
-				$("#peditstate").val(result[0][0].stateid).attr('selected', 'selected');
-				$("#peditcountry").val(result[0][0].countryid).attr('selected', 'selected');
-				$("#peditexperience").val(result[0][0].experince);
-				$("#pedithighestquali").val(result[0][0].highestqualificationid).attr('selected', 'selected');
-				$("#peditcurrentjobtitle").val(result[0][0].currentjobtitle);
-				$("#peditcurrentsalary").val(result[0][0].currentsalary);
-				$("#peditexpectedsalary").val(result[0][0].expectedsalary);
-				$("#peditskillset").val(result[0][0].skillset);
-				$("#peditskypeid").val(result[0][0].skypeid);
-				$("#peditnoticeperiod").val(result[0][0].noticeperiod);
-				$("#peditcurrentlocation").val(result[0][0].currentlocationid).attr('selected', 'selected');
-				$("#peditdesiredlocation").val(result[0][0].desiredlocationid).attr('selected', 'selected');
-				$("#peditstatus").val(result[0][0].statusid).attr('selected', 'selected');
-				$("#peditvendorid").val(result[0][0].vendorid);
-				$("#peditfilename").val(result[0][0].resumename);
-				$("#peditjobtitle").text(result[0][0].pjobtitle)
-				$("#seditskillset").val(result[0][0].psecondaryskill);
-				$("#peditjobtitle").text(result[0][0].pjobtitle);
-			}
-
-		});
-
-	}
-
 	function addprofile() {
-	
+
 		//var Profileid = $('[name="profileid"]').val();
 		var Jobrecid = $('[name="pjob_recid"]').val();
 		var jobreqcode = $("#jobrecid option:selected").text();
@@ -1378,7 +1318,7 @@ $(document).ready(function() {
 		var Pjobtitle = $('[name="pjob_title"]').val();
 		var Psecondskill = $('[name="sskill_set"]').val();
 		var Resigned = $('input[name=resigned]:checked').val();
-		var Vendorname =  $("#profilevendorid option:selected").text();
+		var Vendorname = $("#profilevendorid option:selected").text();
 		var data = {
 
 			//"Profileid": Profileid,
@@ -1419,36 +1359,127 @@ $(document).ready(function() {
 
 		var url = "http://localhost:2000/addprofiles";
 
-		 if (Jobrecid!="" &&jobreqcode!="" && Firstname!="" && Lastname!="" &&Email!="" && Mobile!=""
-		 && Experience!="" && Highestquali!="" && Currentjobtitle!="" &&Currentsalary!="" 
-		 && Expectedsalary!="" && Skillset!="" &&Noticeperiod!="" && Currentlocation!="" && Desiredlocation!="" 
-		 && Status!="" && Experience!="" && Resigned!="" && Vendorid!="" && Pjobtitle!="" && Vendorname!="")
-{
+		if (Jobrecid != "" && jobreqcode != "" && Firstname != "" && Lastname != "" && Email != "" && Mobile != ""
+			&& Experience != "" && Highestquali != "" && Currentjobtitle != "" && Currentsalary != ""
+			&& Expectedsalary != "" && Skillset != "" && Noticeperiod != "" && Currentlocation != "" && Desiredlocation != ""
+			&& Status != "" && Experience != "" && Resigned != "" && Vendorid != "" && Pjobtitle != "" && Vendorname != "") {
+			$.ajax({
+				url: url,
+				type: "post",
+				async: false,
+				data: data,
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
+
+					$('#profilesmodal').modal('hide');
+					$('#successmodal').modal('show');
+					clearFormProfile();
+
+
+				},
+				error: function () {
+				}
+			});
+
+		}
+
+		profileslistingdetails();
+
+	}
+
+
+	function profileslistingdetails() {
+
+		var tableData = "";
+
+		var url = "http://localhost:2000/profileslistingdetails";
+
 		$.ajax({
 			url: url,
-			type: "post",
-			async: false,
-			data: data,
-			contentType: "application/json",
-			dataType: "json",
+			type: "GET",
 			success: function (result) {
 
-				$('#profilesmodal').modal('hide');
-				$('#successmodal').modal('show');
-				clearFormProfile();
-				
+				for (var i = 0; i < result[0].length; i++) {
 
-			},
-			error: function () {
+					var profileID = "\"" + result[0][i].profileid + "\"";
+					var statusId = "\"" + result[0][i].status + "\"";
+
+					tableData = tableData + "  <tr class='content' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' > " +
+
+						"<td >" + result[0][i].jobreqcode + "</td>" +
+						"<td >" + result[0][i].pjobtitle + "</td>" +
+						"<td >" + result[0][i].firstname + "&nbsp" + result[0][i].lastname + "</td>" +
+						"<td >" + result[0][i].skillset + "</td>" +
+						"<td >" + result[0][i].experince + "</td>" +
+						"<td >" + result[0][i].status + "</td>" +
+						"<td >" + result[0][i].pvendorname + "</td>" +
+						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' style='font-size: 20px;color:black;position:relative;left:3%;'></i>" + "</a>" + "</td>" +
+
+						"</tr>";
+
+				}
+
+				// $("#profileslistingbody").html(tableData);
+				$("#profiletable tbody").html(tableData);
+
+				$("#profiletable").DataTable();
+
 			}
 		});
-		
 	}
-	
-	profileslistingdetails();
+
+
+	function profilesdisplay(i) {
+		// $("#updateeditprofile").hide();
+		var url = "http://localhost:2000/profilelisting/" + i;
+
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function (result) {
+
+				if (result[0][0].Resignation == 'Y') {
+					$("#editresignedy").prop('checked', true);
+
+				}
+				else if (result[0][0].Resignation == 'N') {
+					$("#editresignedn").prop('checked', true);
+				}
+				$("#editprofilehiddenId").text(result[0][0].profileid);
+				$("#pprofileid").text(result[0][0].profileid);
+				$("#peditjobrecid").text(result[0][0].jobreqcode);
+				$("#peditfirstname").val(result[0][0].firstname);
+				$("#peditlastname").val(result[0][0].lastname);
+				$("#peditemail").val(result[0][0].email);
+				$("#peditmobile").val(result[0][0].mobile);
+				$("#peditdob").val(result[0][0].dob.slice(0, 10));
+				$("#peditcity").val(result[0][0].city);
+				$("#peditstate").val(result[0][0].stateid).attr('selected', 'selected');
+				$("#peditcountry").val(result[0][0].countryid).attr('selected', 'selected');
+				$("#peditexperience").val(result[0][0].experince);
+				$("#pedithighestquali").val(result[0][0].highestqualificationid).attr('selected', 'selected');
+				$("#peditcurrentjobtitle").val(result[0][0].currentjobtitle);
+				$("#peditcurrentsalary").val(result[0][0].currentsalary);
+				$("#peditexpectedsalary").val(result[0][0].expectedsalary);
+				$("#peditskillset").val(result[0][0].skillset);
+				$("#peditskypeid").val(result[0][0].skypeid);
+				$("#peditnoticeperiod").val(result[0][0].noticeperiod);
+				$("#peditcurrentlocation").val(result[0][0].currentlocationid).attr('selected', 'selected');
+				$("#peditdesiredlocation").val(result[0][0].desiredlocationid).attr('selected', 'selected');
+				$("#peditstatus").val(result[0][0].statusid).attr('selected', 'selected');
+				$("#peditvendorid").val(result[0][0].vendorid);
+				$("#peditfilename").val(result[0][0].resumename);
+				$("#peditjobtitle").text(result[0][0].pjobtitle)
+				$("#seditskillset").val(result[0][0].psecondaryskill);
+				$("#peditjobtitle").text(result[0][0].pjobtitle);
+			}
+
+		});
 
 	}
-	
+
+
 	function updateprofile() {
 
 		var peditprofileId = $('[name="editprofile_hiddenId"]').text();
@@ -1465,7 +1496,7 @@ $(document).ready(function() {
 		var peditcurrentjobtitle = $('[name="peditcurrent_jobtitle"]').val();
 		var peditcurrentsalary = $('[name="peditcurrent_salary"]').val();
 		var peditexpectedsalary = $('[name="peditexpected_salary"]').val();
-		var peditresigned = $('[name="editresigned"]').val();
+		//	var peditresigned = $('[name="editresigned"]').val();
 		var peditskillset = $('[name="peditskill_set"]').val();
 		var peditskypeid = $('[name="peditskype_id"]').val();
 		var peditnoticeperiod = $('[name="peditnotice_period"]').val();
@@ -1475,9 +1506,9 @@ $(document).ready(function() {
 		var peditresumename = $('[name="peditresume_name"]').val();
 		var peditvendorid = $('[name="pedit_vendorid"]').val();
 		var editresigned = $('input[name=editresigned]:checked').val();
-	   var peditvendorname = $("#peditvendorid option:selected").text();
-			
-		
+		var peditvendorname = $("#peditvendorid option:selected").text();
+
+
 
 		var data = {
 
@@ -1500,7 +1531,7 @@ $(document).ready(function() {
 			"peditnoticeperiod": peditnoticeperiod,
 			"peditcurrentlocation": peditcurrentlocation,
 			"peditdesiredlocation": peditdesiredlocation,
-			"peditresigned": peditresigned,
+			//"peditresigned": peditresigned,
 			"peditstatus": peditstatus,
 			"peditresumename": peditresumename,
 			"peditvendorid": peditvendorid,
@@ -1510,23 +1541,23 @@ $(document).ready(function() {
 		}
 
 		data = JSON.stringify(data);
-	
+
 		url = "http://localhost:2000/updateprofile/" + peditprofileId,
-			
 
-		$.ajax({
-			url: url,
-			type: "post",
-			async: false,
-			data: data,
-			contentType: "application/json",
-			dataType: "json",
-			success: function (result) {
 
-			},
-			error: function () {
-			}
-		});
+			$.ajax({
+				url: url,
+				type: "post",
+				async: false,
+				data: data,
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
+
+				},
+				error: function () {
+				}
+			});
 
 		profileslistingdetails();
 
@@ -1608,28 +1639,28 @@ $(document).ready(function() {
 		if (Vendorid != "" && Vendorname != "" && Vendorpriloc != "" && Vendorspec != "" && Vendoremail != "" && Recruiterid != "" && Recruitername != "" && Recruitercontno != "" && Vendorrating != "") {
 
 
-		$.ajax({
-			url: url,
-			type: "post",
-			async: false,
-			data: data,
-			contentType: "application/json",
-			dataType: "json",
-			success: function (result) {
+			$.ajax({
+				url: url,
+				type: "post",
+				async: false,
+				data: data,
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
 
-				$('#vendormodal').modal('hide');
-				$('#successmodal').modal('show');
-				clearFormVendor();
+					$('#vendormodal').modal('hide');
+					$('#successmodal').modal('show');
+					clearFormVendor();
 
-			},
-			error: function () {
-			}
-		});
-		
+				},
+				error: function () {
+				}
+			});
+
 		}
-		
+
 		vendorlistingdetails();
-		
+
 	}
 
 
@@ -1654,7 +1685,7 @@ $(document).ready(function() {
 						// "<td >" + result[0][i].vendorrating + "</td>" +
 						"<td >" + result[0][i].vendoremail + "</td>" +
 
-						"<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
+						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
 						"</tr>";
 
 				}
@@ -1896,7 +1927,7 @@ $(document).ready(function() {
 	</div>
 	<div class="container">
 		<div class="row">
-			<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" >
+			<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 
 
 				<div class="col-sm-6">
@@ -1945,7 +1976,7 @@ $(document).ready(function() {
 			<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
 				style="height:420px;" data-scrollax-parent="true">
 				<div class="col-xl-12 ftco-animate mb-5 pb-5" data-scrollax=" properties: { translateY: '70%' }">
-					
+
 
 					<div class="tab-content" style="top:155px;position: relative;">
 						<div id="jobsTab" class="tab-pane fade" style=" background-color: white;">
@@ -1963,13 +1994,15 @@ $(document).ready(function() {
 										<div class="card"
 											style="background-color: #73c7e72e;border: 2px solid rgba(0, 0, 0, 0.21)">
 
-											<h5 class="card-header" style="background-color: #73c7e7;width: 101.5%;right: 6px;position: relative;">DETAILS</h5>
+											<h5 class="card-header"
+												style="background-color: #73c7e7;width: 101.5%;right: 6px;position: relative;">
+												DETAILS</h5>
 											<div class="card-body">
 
 												<div class="row">
 													<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 "></div>
 													<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-														<label><span style="color:red;">*</span>Business Unit:</label>
+														<label>Business Unit:<span style="color:red;">*</span></label>
 													</div>
 													<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 														<select class="form-control" id="bunit" name="bu_unit"
@@ -1977,7 +2010,7 @@ $(document).ready(function() {
 													</div>
 
 													<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-														<label><span style="color:red;">*</span>Sales Region:</label>
+														<label>Sales Region:<span style="color:red;">*</span></label>
 													</div>
 													<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 														<select class="form-control" id="salesregion"
@@ -1989,15 +2022,14 @@ $(document).ready(function() {
 												<div class="row">
 													<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 													<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-														<label style="width: 133px;"><span style="color:red;">*</span>Sales
-															Representative:</label></div>
+														<label style="width: 133px;">Sales Representative:<span style="color:red;">*</span></label></div>
 													<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 														<select class="form-control" id="salesrepresent" name="sale_rep"
 															required></select>
 													</div>
 
 													<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-														<label><span style="color:red;">*</span>Customer:</label></div>
+														<label>Customer:<span style="color:red;">*</span></label></div>
 													<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 														<select class="form-control" id="cus" name="customer"
 															required></select>
@@ -2029,7 +2061,9 @@ $(document).ready(function() {
 											<br>
 											<div class="card"
 												style="background-color: #73c7e72e;border: 2px solid rgba(0, 0, 0, 0.21)">
-												<h5 class="card-header" style="background-color: #73c7e7;width: 101.5%;right: 6px;position: relative;">JOB
+												<h5 class="card-header"
+													style="background-color: #73c7e7;width: 101.5%;right: 6px;position: relative;">
+													JOB
 													DESCRIPTION</h5>
 												<div class="card-body">
 
@@ -2065,31 +2099,31 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Requirement
-																I'd:</label></div>
+															<label>Requirement I'd:<span style="color:red;">*</span></label></div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="text" id="requirement" name="Requirementid"
 																class="form-control" required>
 														</div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>No of
-																Positions:</label></div>
+															<label>No of Positions:<span style="color:red;">*</span></label></div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-															<input type="text" id="positions" name="positions"
-																class="form-control" required>
+															<input type="tel" id="positions" name="positions"
+																minlength="1" maxlength="3" class="form-control"
+																required>
 														</div>
-														
+
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 
 													</div>
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Tech Level:</label>
+															<label>Tech Level:<span style="color:red;">*</span></label>
 														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 
-															<select id="rolelevel" class="form-control" name="role_level" required>
+															<select id="rolelevel" class="form-control"
+																name="role_level" required>
 																<!-- <option value="">Select</option> -->
 																<option value="1">Tech 1</option>
 																<option value="2">Tech 2</option>
@@ -2098,7 +2132,7 @@ $(document).ready(function() {
 														</div>
 
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Job Title:</label>
+															<label>Job Title:<span style="color:red;">*</span></label>
 														</div>
 														<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="text" id="jobtitle" class="form-control"
@@ -2113,18 +2147,20 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label style="width: 144px;"><span style="color:red;">*</span>Requirement Opens on:</label>
+															<label style="width: 144px;">Requirement Opens on:<span style="color:red;">*</span></label>
 														</div>
 														<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-														<input type="date" id="reqdate" name="req_date"
-																class="form-control" required>
+															<input type="date" id="reqdate" name="req_date"
+																min="1970-01-01" max="2022-01-01" class="form-control"
+																required>
 														</div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label style="width: 145px;"><span style="color:red;">*</span>Requirement Closes on:</label>
+															<label style="width: 145px;">Requirement Closes on:<span style="color:red;">*</span></label>
 														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="date" id="edate" name="ex_date"
-																class="form-control" required>
+																min="1970-01-01" max="2025-01-01" class="form-control"
+																required>
 														</div>
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 
@@ -2133,8 +2169,7 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Primary
-																Skill:</label></div>
+															<label>Primary Skill:<span style="color:red;">*</span></label></div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="text" class="form-control" name="primary_skill"
 																id="piskills" required>
@@ -2153,18 +2188,21 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Job
-																Location:</label></div>
+															<label>Job Location:<span style="color:red;">*</span></label>
+														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-															<select id="jloc" name="job_location" class="form-control" required></select>
+															<select id="jloc" name="job_location" class="form-control"
+																required></select>
 														</div>
 
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Location
-																Flexiblity:</label></div>
+															<label>Location Flexiblity:<span style="color:red;">*</span></label>
+														</div>
 														<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-																<input type="radio" value="Y" id="locflexy" name="loc_flex"><label>Yes</label>
-																<input type="radio" value="N" id="locflexn" name="loc_flex"><label>No</label>
+															<input type="radio" value="Y" id="locflexy"
+																name="loc_flex"><label>Yes</label>
+															<input type="radio" value="N" id="locflexn"
+																name="loc_flex"><label>No</label>
 														</div>
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 													</div>
@@ -2172,17 +2210,15 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Status:</label>
-
+															<label>Status:<span style="color:red;">*</span></label>
 														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-															<select id="jstatus" class="form-control" name="jstatus" required>
-																<option value=""></option>
-															</select>
+															<select id="jstatus" class="form-control" name="jstatus"
+																required></select>
 
 														</div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Duration Of The Assignment:</label>
+															<label>Duration of the Assignment:<span style="color:red;">*</span></label>
 														</div>
 														<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="text" id="jduration" name="jduration"
@@ -2196,14 +2232,15 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label style="width: 140px;"><span style="color:red;">*</span>Experience(In Months):</label>
+															<label style="width: 140px;">Experience(InMonths):<span	style="color:red;">*</span></label>
 														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-															<input type="tel" id="experience" name="experience" MinLength="1" MaxLength="3" pattern="\d{3}"
-																class="form-control" required>
+															<input type="tel" id="experience" name="experience"
+																MinLength="1" MaxLength="3" class="form-control"
+																required>
 														</div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Role/Domain:</label>
+															<label>Role/Domain:<span style="color:red;">*</span></label>
 														</div>
 														<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 															<input type="text" id="role" name="role"
@@ -2216,8 +2253,8 @@ $(document).ready(function() {
 													<div class="row">
 														<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-															<label><span style="color:red;">*</span>Job
-																Description:</label></div>
+															<label>Job Description:<span style="color:red;">*</span></label>
+														</div>
 														<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
 															<textarea id="jdesp" name="job_description"
 																style="width: 89%;border-radius: 5px;font-size:13px;"></textarea>
@@ -2265,28 +2302,35 @@ $(document).ready(function() {
 											style="box-shadow:none;border:none;">
 											<div class="col-sm-1"></div>
 											<div id="main-content" class="contact">
-												<div style="background-color: #73c7e72e;border: 1px solid #e3e3e3;height: 52px;">
-													<div class="row" style="color: black;font-size: 13px;top: 12px;position: relative;">
-													
-														<div class="col-sm-2" style="left:21px;margin:3px;"><b>Account</b></div>
-														
+												<div
+													style="background-color: #73c7e72e;border: 1px solid #e3e3e3;height: 52px;">
+													<div class="row"
+														style="color: black;font-size: 13px;top: 12px;position: relative;">
+
+														<div class="col-sm-2" style="left:21px;margin:3px;">
+															<b>Account</b></div>
+
 														<div class="col-sm-2" style="right:58px;">
-															<select class="form-control" id="jobaccount" onchange='filterText()'></select>
+															<select class="form-control" id="jobaccount"
+																onchange='filterText()'></select>
 														</div>
-														<div class="col-sm-2" ></div>
 														<div class="col-sm-2"></div>
-													<div class="col-sm-2"  style="left:25%">
-														<a href="#" onClick="ExportToExcel($('#jobtable'));">
-															<img src="/assets/img/export-to-excel-image.png" style="height: 28px;width:24px;">
-														</a>
+														<div class="col-sm-2"></div>
+														<div class="col-sm-2" style="left:25%">
+															<a href="#"
+																onClick="$('#jobtable').tableExport({type:'excel',escape:'false'});">
+																<img src="/assets/img/export-to-excel-image.png"
+																	style="height: 28px;width:24px;">
+															</a>
+														</div>
 													</div>
-												</div>
 												</div>
 
 												<div id="main-content" class="contact">
 													<div id="tbMarksContainer">
 														<div class="entity-list" id="entity-list">
-															<div class="table table-responsive" style="overflow: auto;height:415px;width:100%;">
+															<div class="table table-responsive"
+																style="overflow: auto;height:415px;width:100%;">
 
 																<table id="jobtable"
 																	class="display dataTable table-bordered"
@@ -2294,15 +2338,30 @@ $(document).ready(function() {
 																	<thead
 																		style="font-weight: bold;background-color: rgb(51, 122, 183);position: relative;top: 0px;color: rgb(255, 255, 255); white-space: nowrap;">
 																		<tr style="  font-weight:bold ; ">
-																			<th scope="col">Recuriment Id </th>
-																			<th scope="col">No.Of Positions </th>
-																			<th scope="col">Experince </th>
-																			<th scope="col">Role </th>
-																			<!-- <th scope="col">Primary Skills</th> -->
+																			<th scope="col">Requirement Id</th>
+																			<th scope="col">Role</th>
+																			<th scope="col">No.Of Positions</th>
+																			<th scope="col">Experince</th>
+																			<th scope="col">Job Title</th>
+																			<th scope="col">Duration </th>
+																			<th scope="col">Primary Skills</th>
+																			<th scope="col">Secondary Skills</th>
 																			<th scope="col">Status</th>
+																			<th scope="col">Requirement Open Date</th>
+																			<th scope="col">Requirement Close Date</th>
 																			<th scope="col">Account</th>
-																			<th data-orderable="false" scope="col">
-																				Action </th>
+																			<th scope="col">Business Unit</th>
+																			<th scope="col">Sales Region</th>
+																			<th scope="col">Sales Representative</th>
+																			<th scope="col">Job Location</th>
+																			<th scope="col">Location Flexibility</th>
+																			<th scope="col">Job Description</th>
+																			<th scope="col">Created By</th>
+																			<th scope="col">Created Date</th>
+																			<th scope="col">Updated By</th>
+																			<th scope="col">Updated Date</th>
+																			<!-- <th data-orderable="false" scope="col">
+																				Action </th> -->
 																		</tr>
 																	</thead>
 																	<tbody id="joblistingbody" style="color:black;">
@@ -2349,23 +2408,27 @@ $(document).ready(function() {
 												<b>Requirement Id</b>
 											</div>
 
-											<div class="col-sm-2"  style="right:30px">
-												<select class="form-control" name="reqid_drop" id="reqiddrop" onclick="jobtitilebyreqid()"></select>
+											<div class="col-sm-2" style="right:30px">
+												<select class="form-control" name="reqid_drop" id="reqiddrop"
+													onclick="jobtitilebyreqid()"></select>
 											</div>
 											<div class="col-sm-2" style="margin:2px;">
 												<b>Job Title</b>
 											</div>
 											<div class="col-sm-2" style="right:8%;">
-												<select class="form-control" id="profilejlocation" style="width:100%;"></select>
+												<select class="form-control" id="profilejlocation"
+													style="width:100%;"></select>
 											</div>
 
 											<div class="col-sm-2" style="left:25%;float:left;">
-												<a href="#" onClick="ExportToExcel($('#profiletable'))">
-												<img src="/assets/img/export-to-excel-image.png" style="height: 28px;width:24px;">
+												<a href="#"
+													onClick="$('#profiletable').tableExport({type:'excel',escape:'false'});">
+													<img src="/assets/img/export-to-excel-image.png"
+														style="height: 28px;width:24px;">
 												</a>
 											</div>
 
-											
+
 										</div>
 									</div>
 									<br>
@@ -2376,20 +2439,21 @@ $(document).ready(function() {
 
 											<div class="table table-responsive" style="overflow: auto;height:400px">
 
-												<table class="display dataTable table-bordered" style="width:105%;color: black;" id="profiletable">
+												<table class="display dataTable table-bordered"
+													style="width:105%;color: black;" id="profiletable">
 													<thead style="font-weight: bold;background-color: rgb(51, 122, 183);
 														position: relative;top: 0px;color: rgb(255, 255, 255); white-space: nowrap;">
 
 														<tr style="  font-weight:bold ; ">
-															<th scope="col">Recuriment Id <i class="up"></i><i
+															<th scope="col">Requirement Id <i class="up"></i><i
 																	class="down"></i></th>
-																	<th scope="col">Job Title</th>
+															<th scope="col">Job Title</th>
 															<th scope="col">Candidate Name</th>
 															<th scope="col">Skill</th>
 															<th scope="col">Experience</th>
 															<th scope="col">Status</th>
-															 <!-- <th scope="col">Vendor Id</th>  -->
-															<th data-orderable="false" scope="col">Action</th>
+															<th scope="col">Vendor Id</th>
+															<!-- <th data-orderable="false" scope="col">Action</th> -->
 														</tr>
 													</thead>
 													<tbody id="profileslistingbody" style="color:black;">
@@ -2430,19 +2494,23 @@ $(document).ready(function() {
 
 											<div
 												style="background-color:  #73c7e726;border: 1px solid #e3e3e3;height: 52px;">
-												<div class="row" style="color: black;font-size: 13px;top: 12px;position: relative;">
+												<div class="row"
+													style="color: black;font-size: 13px;top: 12px;position: relative;">
 
 													<div class="col-sm-2" style="left:14px;margin:3px;">
 														<b>Vendor Name</b>
 													</div>
 													<div class="col-sm-2" style="right:3%">
-														<select class="form-control" id="vratingdrop" onchange="vendorfilterText()"></select>
+														<select class="form-control" id="vratingdrop"
+															onchange="vendorfilterText()"></select>
 													</div>
 													<div class="col-sm-2"></div>
 													<div class="col-sm-2"></div>
 													<div class="col-sm-2" style="left:25%;">
-														<a href="#" onClick="$('#vendortable').tableExport({type:'excel',escape:'false'});">
-															<img src="/assets/img/export-to-excel-image.png" style="height: 28px;width:24px;">
+														<a href="#"
+															onClick="$('#vendortable').tableExport({type:'excel',escape:'false'});">
+															<img src="/assets/img/export-to-excel-image.png"
+																style="height: 28px;width:24px;">
 														</a>
 													</div>
 
@@ -2473,7 +2541,7 @@ $(document).ready(function() {
 																	<th scope="col">Recruiter Name</th>
 																	<!-- <th scope="col">Rating</th>  -->
 																	<th scope="col">Vendor Email</th>
-																	<th data-orderable="false" scope="col">Action</th>
+																	<!-- <th data-orderable="false" scope="col">Action</th> -->
 																</tr>
 															</thead>
 															<tbody id="vendorlistingbody" style="color:black">
@@ -2512,16 +2580,16 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Requirement ID:</label>
+									<label>Requirement ID:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<p id="reqiddisplay" name="reqid_display" style="color: black;font-size: 13px;"></p>
 
 								</div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label><span style="color:red;">*</span>Job Title</label></div>
+									<label>Job Title:<span style="color:red;">*</span></label></div>
 								<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-									<input type="text" id="jobtitleedit" name="jobtitleedit" class="form-control">
+									<input type="text" id="jobtitleedit" name="jobtitle_edit" class="form-control">
 								</div>
 
 								<div class="col-sm-1"> </div>
@@ -2529,7 +2597,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label><span style="color:red;">*</span>Role Level:</label></div>
+									<label>Tech Level:<span style="color:red;">*</span></label></div>
 								<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 									<select id="roleleveledit" class="form-control" name="role_leveledit">
 										<option value="">Tech 1</option>
@@ -2549,7 +2617,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Primary Skill:</label>
+									<label>Primary Skill:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="psedit" name="ps_edit" class="form-control">
@@ -2566,7 +2634,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>No of Positions: </label>
+									<label>No of Positions:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
@@ -2585,18 +2653,16 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label><span style="color:red;">*</span>Duration:
-										:</label></div>
+									<label>Duration of the Assignment:<span style="color:red;">*</span></label>
+								</div>
 								<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-									<input type="text" id="jdurationedit" name="jdurationedit" class="form-control">
+									<input type="text" id="jdurationedit" name="jduration_edit" class="form-control">
 								</div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label><span style="color:red;">*</span>Status:</label></div>
+									<label>Status:<span style="color:red;">*</span></label>
+								</div>
 								<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-									<select id="jstatusedit" class="form-control" name="jstatusedit">
-										<!-- <option value=""></option> -->
-										<option value="1">Open</option>
-										<option value="2">Close</option>
+									<select id="jstatusedit" class="form-control" name="jstatus_edit">
 									</select>
 								</div>
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
@@ -2606,16 +2672,16 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Date of request:</label>
+									<label>Requirement Opens On:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="datereqedit" name="datereq_edit" class="form-control">
 								</div>
 								<div class="col-sm-2">
-									<label style="width: 113px;">Close Date:</label>
+									<label style="width: 113px;">Requirement Closes On:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="expdateedit" name="expdate_edit" class="form-control">
+									<input type="text" id="closedateedit" name="closedate_edit" class="form-control">
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -2623,13 +2689,14 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Location Flexibility:</label>
+									<label style="width:115px">Location	Flexibility:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="lfedit" name="lf_edit" class="form-control">
+									<input type="radio" value="Y" id="lfedity" name="lf_edit"><label>Yes</label>
+									<input type="radio" value="N" id="lfeditn" name="lf_edit"><label>No</label>
 								</div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Experience:</label>
+									<label>Experience:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="expedit" name="exp_edit" class="form-control">
@@ -2647,10 +2714,11 @@ $(document).ready(function() {
 									</select>
 								</div>
 								<div class="col-sm-2">
-									<label>Sales Regions:</label>
+									<label>Sales Region:</label>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="sregionedit" name="sregion_edit" class="form-control">
+									<select class="form-control" id="sregionedit" name="sregion_edit"
+										class="form-control">
 									</select>
 								</div>
 								<div class="col-sm-1"></div>
@@ -2659,7 +2727,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label>Sales Representative:</label>
+									<label style="width:128px">Sales Representative:</label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="srepedit" name="srep_edit" class="form-control">
@@ -2667,7 +2735,7 @@ $(document).ready(function() {
 								</div>
 
 								<div class="col-sm-2">
-									<label style="width: 113px;">Customers:</label>
+									<label style="width: 113px;">Customer:</label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="custedit" name="cust_edit"></select>
@@ -2678,7 +2746,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Created by:</label>
+									<label>Created by:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="cbyedit" name="cby_edit" class="form-control">
@@ -2695,7 +2763,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Created date:</label>
+									<label>Created date:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="cbydateedit" name="cbydate_edit" class="form-control">
@@ -2713,10 +2781,12 @@ $(document).ready(function() {
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 								</div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label>Job description:</label></div>
+									<label>Job description:</label>
+								</div>
 								<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
 									<p id="jdiddisplayhidden" name="jdiddisplay_hidden" style="display:none;"></p>
-									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="jdedit" name="jd_edit"></textarea>
+									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="jdedit"
+										name="jd_edit"></textarea>
 								</div>
 							</div>
 
@@ -2724,20 +2794,22 @@ $(document).ready(function() {
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 								</div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label>JD Comments:</label></div>
+									<label>JD Comments:</label>
+								</div>
 								<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
-									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="JD_comment"
-										name="jdcomments"></textarea>
+									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="jdcomment"
+										name="jd_comments"></textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 								</div>
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-									<label>BU Comments:</label></div>
+									<label>BU Comments:</label>
+								</div>
 								<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
-									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="BU_comment"
-										name="bucomments"></textarea>
+									<textarea style="width: 89%;border-radius: 5px; font-size:13px;" id="bucomment"
+										name="bu_comments"></textarea>
 								</div>
 							</div>
 						</form>
@@ -2774,8 +2846,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Job Requirement
-										ID:</label>
+									<label style="width: 125px;">Job Requirement ID:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select  class="js-example-basic-single form-control" id="jobrecid" name="pjob_recid" onclick="editjobtitilebyreqid()" >
@@ -2784,7 +2855,7 @@ $(document).ready(function() {
 									
 								</div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Job Title:</label>
+									<label style="width: 113px;">Job Title:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="profilejobtitle" name="pjob_title"
@@ -2796,14 +2867,14 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>First Name:</label>
+									<label style="width: 113px;">First Name:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
 									<input type="text" id="firstname" name="pfirst_name" class="form-control" required>
 								</div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Last Name:</label>
+									<label style="width: 113px;">Last Name:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
@@ -2814,18 +2885,20 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Mobile:</label>
+									<label>Mobile:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
-									<input type="tel" id="mobile" name="p_mobile" class="form-control" MaxLength="10" pattern="[0-9]{10}" required>
+									<input type="tel" id="mobile" name="p_mobile" class="form-control" MaxLength="10"
+										pattern="[0-9]{10}" required>
 								</div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Email:</label>
+									<label>Email:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
-									<input type="email" id="email" name="p_email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+									<input type="email" id="email" name="p_email" class="form-control"
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 								</div>
 
 								<div class="col-sm-1"> </div>
@@ -2833,11 +2906,12 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Date of Birth:</label>
+									<label style="width: 113px;">Date of Birth:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
-									<input type="date" id="dob" name="p_dob" class="form-control" min="1970-01-01" max="2002-01-01" required>
+									<input type="date" id="dob" name="p_dob" class="form-control" min="1970-01-01"
+										max="2002-01-01" required>
 								</div>
 
 								<div class="col-sm-1"> </div>
@@ -2851,7 +2925,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Country:</label>
+									<label>Country:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="country" name="p_country"
@@ -2859,10 +2933,11 @@ $(document).ready(function() {
 									</select>
 								</div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>State:</label>
+									<label>State:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="state" name="p_state" class="form-control" required>
+									<select class="form-control" id="state" name="p_state" class="form-control"
+										required>
 									</select>
 								</div>
 								<div class="col-sm-1"></div>
@@ -2870,7 +2945,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>City:</label>
+									<label>City:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="city" name="p_city" class="form-control" required>
@@ -2886,7 +2961,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Highest Qualification:</label>
+									<label>Highest Qualification:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="highestquali" name="p_highestquali"
@@ -2895,8 +2970,7 @@ $(document).ready(function() {
 								</div>
 
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Current Job
-										Title:</label>
+									<label style="width: 113px;">Current Job Title:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="currentjobtitle" name="pcurrent_jobtitle"
@@ -2907,7 +2981,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Current CTC:</label>
+									<label>Current CTC:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
@@ -2928,7 +3002,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Primary Skill:</label>
+									<label>Primary Skill:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 
@@ -2947,14 +3021,14 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Skype ID:</label>
+									<label style="width: 113px;">Skype ID:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="skypeid" name="pskype_id" class="form-control" required>
 								</div>
 
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Notice Period:</label>
+									<label>Notice Period:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="noticeperiod" name="pnotice_period" class="form-control"
@@ -2965,16 +3039,14 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Current
-										Location:</label>
+									<label style="width: 113px;">Current Location:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="currentlocation" name="pcurrent_location"
 										required></select>
 								</div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Desired
-										Location:</label>
+									<label style="width: 113px;">Desired Location:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="desiredlocation" name="pdesired_location"
@@ -2986,7 +3058,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Experience:</label>
+									<label>Experience:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="profileexperience" name="p_experience" class="form-control"
@@ -2994,7 +3066,7 @@ $(document).ready(function() {
 								</div>
 
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Resigned:</label>
+									<label>Resigned:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="radio" value="Y" id="resignedy" name="resigned"><label>Yes</label>
@@ -3031,7 +3103,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Current Status:</label>
+									<label>Current Status:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="status" name="p_status" class="form-control"
@@ -3041,7 +3113,7 @@ $(document).ready(function() {
 								</div>
 
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Vendor:</label>
+									<label>Vendor:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<select id="profilevendorid" name="p_vendorid" class="form-control"
@@ -3058,7 +3130,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Resume:</label>
+									<label style="width: 113px;">Resume:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
 									<input type="file" id="profileresume" onchange="uploadOnChange()" name="myFile"
@@ -3077,8 +3149,7 @@ $(document).ready(function() {
 
 					</div>
 					<div class="modal-footer">
-						<button type="Submit" class="btn btn-sm btn-info"
-							onclick="addprofile()">Save</button>
+						<button type="Submit" class="btn btn-sm btn-info" onclick="addprofile()">Save</button>
 						<button type="button" class="btn btn-sm btn-info" data-dismiss="modal"
 							onclick="clearFormProfile();">Cancel</button>
 					</div>
@@ -3095,8 +3166,7 @@ $(document).ready(function() {
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #73c7e7">
 						<h5 class="modal-title">Profile Description</h5>
-						<button type="button" class="close" onclick="disableprofileedit()"
-							data-dismiss="modal">&times;</button>
+						<button type="button" class="close"	data-dismiss="modal">&times;</button>
 
 					</div>
 
@@ -3107,8 +3177,8 @@ $(document).ready(function() {
 									<h4 style="margin-left:2%;font-size: 15px;font-weight: bold;">Profile Status:</h4>
 								</div>
 								<div class="col-sm-3">
-									<button type="button" id="lttsInterviewBtn"
-										style="display: none;">Schedule Ltts Interview</button>
+									<button type="button" id="lttsInterviewBtn" style="display: none;">Schedule Ltts
+										Interview</button>
 									<button type="button" id="customerInterviewBtn" style="display: none;">Schedule
 										Customer Interview</button>
 								</div>
@@ -3180,7 +3250,8 @@ $(document).ready(function() {
 								</div>
 								<div class="col-sm-3">
 
-									<input type="tel" id="peditmobile" name="pedit_mobile" class="form-control" MaxLength="10" pattern="[0-9]{10}"	required>
+									<input type="tel" id="peditmobile" name="pedit_mobile" class="form-control"
+										MaxLength="10" pattern="[0-9]{10}" required>
 								</div>
 
 								<div class="col-sm-2">
@@ -3188,7 +3259,8 @@ $(document).ready(function() {
 								</div>
 								<div class="col-sm-3">
 
-									<input type="email" id="peditemail" name="pedit_email" class="form-control"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+									<input type="email" id="peditemail" name="pedit_email" class="form-control"
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -3224,7 +3296,8 @@ $(document).ready(function() {
 									<label>State:</label>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="peditstate" name="pedit_state" class="form-control">
+									<select class="form-control" id="peditstate" name="pedit_state"
+										class="form-control">
 									</select>
 								</div>
 
@@ -3252,7 +3325,7 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Highest Qualification:</label>
+									<label style="width: 128px;"><span style="color:red">*</span>Highest Qualification:</label>
 								</div>
 								<div class="col-sm-3">
 									<select class="form-control" id="pedithighestquali" name="pedit_highestquali"
@@ -3261,8 +3334,7 @@ $(document).ready(function() {
 								</div>
 
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Current Job
-										Title:</label>
+									<label style="width: 113px;"><span style="color:red">*</span>Current Job Title:</label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" id="peditcurrentjobtitle" name="peditcurrent_jobtitle"
@@ -3302,7 +3374,7 @@ $(document).ready(function() {
 										required>
 								</div>
 								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Secondary Skill:</label>
+									<label>Secondary Skill:</label>
 								</div>
 								<div class="col-sm-3">
 
@@ -3437,8 +3509,7 @@ $(document).ready(function() {
 							onclick="enableprofileedit()">Edit</button> -->
 						<button type="submit" id="updateeditprofile" class="btn btn-sm btn-info" data-dismiss="modal"
 							onclick="updateprofile()">Update</button>
-						<button type="button" class="btn btn-sm btn-info" onclick="disableprofileedit()"
-							data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-sm btn-info" data-dismiss="modal">Cancel</button>
 					</div>
 					</form>
 
@@ -3503,7 +3574,8 @@ $(document).ready(function() {
 									<label style="width: 113px;"><span style="color:red">*</span>Vendor Email:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="email" id="vendoremail" name="vendor_email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+									<input type="email" id="vendoremail" name="vendor_email" class="form-control"
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 								</div>
 								<div class="col-sm-2">
 									<label><span style="color:red">*</span>Recruiter Id:</label>
@@ -3528,7 +3600,8 @@ $(document).ready(function() {
 									<label><span style="color:red">*</span>Recruiter Contact Number:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="tel" id="recruitercontno" name="recruiter_contno" class="form-control" MaxLength="10" pattern="[0-9]{10}" required>
+									<input type="tel" id="recruitercontno" name="recruiter_contno" class="form-control"
+										MaxLength="10" pattern="[0-9]{10}" required>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -3553,8 +3626,7 @@ $(document).ready(function() {
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="Submit" class="btn btn-sm btn-info"
-									onclick="addvendor()">Save</button>
+								<button type="Submit" class="btn btn-sm btn-info" onclick="addvendor()">Save</button>
 								<button type="button" class="btn btn-sm btn-info" onclick="clearFormVendor();"
 									data-dismiss="modal">Cancel</button>
 							</div>
@@ -3625,7 +3697,8 @@ $(document).ready(function() {
 									<label style="width: 113px;"><span style="color:red">*</span>Vendor Email:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="email" id="editvendoremail" name="editvendor_email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+									<input type="email" id="editvendoremail" name="editvendor_email"
+										class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 								</div>
 								<div class="col-sm-2">
 									<label><span style="color:red">*</span>Recruiter Id:</label>
@@ -3650,7 +3723,8 @@ $(document).ready(function() {
 									<label><span style="color:red">*</span>Recruiter Contact Number:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="tel" id="editrecruitercontno" name="editrecruiter_contno" class="form-control" MaxLength="10" pattern="[0-9]{10}" required>
+									<input type="tel" id="editrecruitercontno" name="editrecruiter_contno"
+										class="form-control" MaxLength="10" pattern="[0-9]{10}" required>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -3672,15 +3746,14 @@ $(document).ready(function() {
 								</div>
 								<div class="col-sm-9">
 									<textarea id="editvendorcomments" name="editvendor_comments"
-										style="width: 89%;border-radius: 5px;font-size:13px;" ></textarea>
+										style="width: 89%;border-radius: 5px;font-size:13px;"></textarea>
 								</div>
 							</div>
 							<div class="modal-footer">
 								<!-- <button type="button" class="btn btn-sm btn-info" id="editvendor"
 									onclick="enablevendorlist()" data-toggle="modal">Edit</button> -->
 								<button type="Submit" class="btn btn-sm btn-info" id="updatevendor"
-									onclick="updatevendorbyid()"
-									data-dismiss="modal">update</button>
+									onclick="updatevendorbyid()" data-dismiss="modal">update</button>
 								<button type="button" class="btn btn-sm btn-info" onclick="cancelenablevendor()"
 									data-dismiss="modal">Cancel</button>
 
@@ -3699,8 +3772,7 @@ $(document).ready(function() {
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #73c7e7">
 						<h5 class="modal-title">Interview Details</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							>&times;</button>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body" style="height:238px;">
 						<form action="post" onsubmit="return false">
@@ -3717,10 +3789,11 @@ $(document).ready(function() {
 									<label style="width: 113px;"><span style="color:red">*</span>Job Role:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="custjobrole" name="custjob_role" class="form-control" required>
+									<input type="text" id="custjobrole" name="custjob_role" class="form-control"
+										required>
 								</div>
 								<div class="col-sm-1"></div>
-							</div>	
+							</div>
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
@@ -3731,18 +3804,21 @@ $(document).ready(function() {
 									<select id="intcustomer" name="int_customer" class="form-control" required></select>
 								</div>
 								<div class="col-sm-2">
-									<label style="width: 114px;"><span style="color:red">*</span>Interview Location:</label>
+									<label style="width: 114px;"><span style="color:red">*</span>Interview
+										Location:</label>
 								</div>
 								<div class="col-sm-3">
 
-									<select id="custintlocation" name="custint_location" class="form-control" required></select>
+									<select id="custintlocation" name="custint_location" class="form-control"
+										required></select>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Interviewer Name:</label>
+									<label style="width: 113px;"><span style="color:red">*</span>Interviewer
+										Name:</label>
 								</div>
 								<div class="col-sm-3">
 									<input type="text" class="form-control" id="custintname" name="custint_name"
@@ -3759,10 +3835,12 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Interview Date & Time:</label>
+									<label style="width: 113px;"><span style="color:red">*</span>Interview Date &
+										Time:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="datetime-local" id="custinttime" name="custnt_time" class="form-control" required>
+									<input type="datetime-local" id="custinttime" name="custnt_time"
+										class="form-control" required>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -3779,90 +3857,93 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-<!--Ltts Interview Modal -->
+		<!--Ltts Interview Modal -->
 
-<div class="modal fade" id="lttsinterviewModal" role="dialog" style="margin-top: 20%;">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header" style="background-color: #73c7e7">
-				<h5 class="modal-title">Interview Details</h5>
-				<button type="button" class="close" data-dismiss="modal"
-							>&times;</button>
-			</div>
-			<div class="modal-body" style="height:238px;">
-				<form action="post" onsubmit="return false">
-					
-					<div class="row">
-						<div class="col-sm-1"></div>
-						<div class="col-sm-2">
-							<label style="width: 113px;"><span style="color:red">*</span>Candidate Name:</label>
-						</div>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="lttscandname" name="lttscand_name"
-								class="form-control" required>
-						</div>
-						<div class="col-sm-2">
-							<label style="width: 113px;"><span style="color:red">*</span>Job Role:</label>
-						</div>
-						<div class="col-sm-3">
-							<input type="text" id="lttsjobrole" name="lttsjob_role" class="form-control" required>
-						</div>
-						<div class="col-sm-1"></div>
-					</div>					
-					<div class="row">
-						<div class="col-sm-1"></div>
-						<div class="col-sm-2">
-							<label style="width: 113px;"><span style="color:red">*</span>Interviewer Name:</label>
-						</div>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="lttsintname" name="lttsint_name"
-								class="form-control" required>
-						</div>
-						<div class="col-sm-2">
-							<label><span style="color:red">*</span>Interview Type:</label>
-						</div>
-						<div class="col-sm-3">
-							<select id="lttsinttype" name="lttsint_type" class="form-control"
-								required></select>
-						</div>
-						<div class="col-sm-1"></div>
+		<div class="modal fade" id="lttsinterviewModal" role="dialog" style="margin-top: 20%;">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #73c7e7">
+						<h5 class="modal-title">Interview Details</h5>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="row">
-						<div class="col-sm-1"></div>
+					<div class="modal-body" style="height:238px;">
+						<form action="post" onsubmit="return false">
 
-						<div class="col-sm-2">
-							<label style="width: 113px;"><span style="color:red">*</span>Interview Date & Time:</label>
-						</div>
-						<div class="col-sm-3">
-							<input type="datetime-local" id="lttsinttime" name="lttsint_time" class="form-control"
-								required>
-						</div>
-						
-						<div class="col-sm-1"> </div>
-					</div>
-					<div class="row">
-						<div class="col-sm-1"></div>
-						<div class="col-sm-2">
-							<label style="width: 113px;"><span style="color:red">*</span>Intrview Location:</label>
-						</div>
-						<div class="col-sm-3">
+							<div class="row">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label style="width: 113px;"><span style="color:red">*</span>Candidate Name:</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="lttscandname" name="lttscand_name"
+										class="form-control" required>
+								</div>
+								<div class="col-sm-2">
+									<label style="width: 113px;"><span style="color:red">*</span>Job Role:</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" id="lttsjobrole" name="lttsjob_role" class="form-control"
+										required>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label style="width: 113px;"><span style="color:red">*</span>Interviewer
+										Name:</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="lttsintname" name="lttsint_name"
+										class="form-control" required>
+								</div>
+								<div class="col-sm-2">
+									<label><span style="color:red">*</span>Interview Type:</label>
+								</div>
+								<div class="col-sm-3">
+									<select id="lttsinttype" name="lttsint_type" class="form-control" required></select>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-1"></div>
 
-							<select id="lttsintlocation" name="lttsint_location" class="form-control" required></select>
-						</div>
-						<div class="col-sm-1"> </div>
-					</div>
-					<div class="modal-footer">
-						<button type="Submit" class="btn btn-sm btn-info"
-							onclick="" data-dismiss="modal">Save</button>
-						<button type="button" class="btn btn-sm btn-info" onclick=""
-							data-dismiss="modal">Cancel</button>
-					</div>
-				</form>
+								<div class="col-sm-2">
+									<label style="width: 113px;"><span style="color:red">*</span>Interview Date &
+										Time:</label>
+								</div>
+								<div class="col-sm-3">
+									<input type="datetime-local" id="lttsinttime" name="lttsint_time"
+										class="form-control" required>
+								</div>
 
+								<div class="col-sm-1"> </div>
+							</div>
+							<div class="row">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-2">
+									<label style="width: 113px;"><span style="color:red">*</span>Interview
+										Location:</label>
+								</div>
+								<div class="col-sm-3">
+
+									<select id="lttsintlocation" name="lttsint_location" class="form-control"
+										required></select>
+								</div>
+								<div class="col-sm-1"> </div>
+							</div>
+							<div class="modal-footer">
+								<button type="Submit" class="btn btn-sm btn-info" onclick=""
+									data-dismiss="modal">Save</button>
+								<button type="button" class="btn btn-sm btn-info" onclick=""
+									data-dismiss="modal">Cancel</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.easing.1.3.js"></script>
