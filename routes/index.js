@@ -203,6 +203,7 @@ module.exports = {
     },
 
     addjd: (req, res) => {
+        
         let Requirement = req.body.Requirement;
         let Role = req.body.Role;
         let rolelevel = req.body.rolelevel;
@@ -220,6 +221,7 @@ module.exports = {
         let buid = req.body.buid;
         let salesregionid = req.body.salesregionid;
         let salesrepid = req.body.salesrepid;
+        let joblocationid = req.body.joblocationid;
         let joblocation = req.body.joblocation;
         let jDescription = req.body.jDescription;
         let buComments = req.body.buComments;
@@ -231,17 +233,17 @@ module.exports = {
     
         let query = "call procinsertjobdescription('" + buid + "','" + salesregionid + "','" + salesrepid + "','" + customerid + "','" +
         Requirement + "', '" + Role + "','" + rolelevel + "','" + jobtitle + "','" + closedate + "','" + dateofreq + "','" + PSkill +
-        "',  '" + SSkill + "','" + joblocation + "','" + locationflex + "', '" + jdstatus + "','" + jdduration + "','" + experince + "','" +
+        "',  '" + SSkill + "','" + joblocationid + "','" + joblocation + "','" + locationflex + "', '" + jdstatus + "','" + jdduration + "','" + experince + "','" +
          Position + "', '" + jDescription + "','" + buComments + "','" + jdComments + "', '" + createdby + "',now(),'" + updateby + "',now())";
-    
+  console.log(query);  
   
         db.query(query, (err, result) => {
             if (err) {
-             
+             console.log(err);
                 return res.status(500).send(err);
             }
             res.status(200).json(result);
-
+console.log(result);
         });
     },
 

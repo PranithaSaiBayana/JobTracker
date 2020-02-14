@@ -286,9 +286,13 @@
  		background-color: black;
 	} */
 
-	tr:hover {
+	/* tr:hover {
 		background-color:#f5f5f5;
-		}
+		} */
+
+		.myTableBody tr:hover {
+ 			 background-color:#f5f5f5;
+	}
 </style>
 
 <script type="text/javascript">
@@ -918,6 +922,7 @@ $(document).ready(function() {
 				$("#jlocation").html(currentlocation);
 				$("#intlocation").html(currentlocation);
 				$("#jloc").html(currentlocation);
+				$("#jlidedit").html(currentlocation);
 
 			}
 		});
@@ -993,6 +998,8 @@ $(document).ready(function() {
 
 	function addjd() {
 
+		console.log("working");
+
 		var Requirement = $('[name="Requirementid"]').val();
 		var Role = $('[name="role"]').val();
 		var rolelevel = $('[name="role_level"]').val();
@@ -1006,11 +1013,12 @@ $(document).ready(function() {
 		var SSkill = $('[name="secondry_skill"]').val();
 		var locationflex = $('input[name=loc_flex]:checked').val();
 		var customerid = $('[name="customer"]').val();
-		var jdstatus = $('[name="jstatus"]').val();
+		var jdstatus = $('[name="j_status"]').val();
 		var buid = $('[name="bu_unit"]').val();
 		var salesregionid = $('[name="sales_region"]').val();
 		var salesrepid = $('[name="sale_rep"]').val();
-		var joblocation = $('[name="job_location"]').val();
+		var joblocation = $('#jloc option:selected').text();
+		var joblocationid = $('[name="job_location"]').val();
 		var jDescription = $('[name="job_description"]').val();
 		var buComments = $('[name="bu_comments"]').val();
 		var jdComments = $('[name="jd_comments"]').val();
@@ -1039,6 +1047,7 @@ $(document).ready(function() {
 			"buid": buid,
 			"salesregionid": salesregionid,
 			"salesrepid": salesrepid,
+			"joblocationid": joblocationid,
 			"joblocation": joblocation,
 			"jDescription": jDescription,
 			"buComments": buComments,
@@ -1049,11 +1058,14 @@ $(document).ready(function() {
 		}
 
 		data = JSON.stringify(data);
+		console.log(data);
 		var url = "http://localhost:2000/jdescription";
-
-		// if(Requirement!="" && Role!="" && Position!=""&& Expected!=""&& Exp!=""&& PSkill!=""&& SSkill!=""&& locationflex!=""&& customerid!=""
-		// && Status!=""&& buid!=""&& salesregionid!=""&& joblocation!=""&& jDescription!="")
-		//   {
+console.log(url);
+		
+	if(Requirement!="" && Role!="" && rolelevel!="" && jobtitle!="" && Position!="" && closedate!="" && dateofreq!="" &&
+		 jdduration!="" && Exp!=""&& PSkill!=""&& SSkill!=""&& locationflex!=""&& customerid!=""&& jdstatus!=""&& 
+		 buid!=""&& salesregionid!=""&& salesrepid!="" && joblocationid!="" && joblocation!=""&& jDescription!="")
+		  {
 		$.ajax({
 			url: url,
 			type: "post",
@@ -1062,17 +1074,23 @@ $(document).ready(function() {
 			contentType: "application/json",
 			dataType: "json",
 			success: function (result) {
-
+console.log(result);
 				$('#successmodal').modal('show');
-				clearFormJob();
+				
 
 			},
 			error: function () {
-
+console.log("jd");
 			}
-		});
 
-		// }
+			
+		});
+		clearFormJob();
+
+		}
+
+		
+		
 	}
 
 	function joblistingdetails() {
@@ -1144,13 +1162,13 @@ $(document).ready(function() {
 				else if (result[0][0].Locationflex == 'N') {
 					$("#lfeditn").prop('checked', true);
 				}
-
+console.log(result);
 				$("#jdiddisplayhidden").text(result[0][0].jobdescriptionid);
 				$("#reqiddisplay").text(result[0][0].requirmentid);
 				$("#jobtitleedit").val(result[0][0].jdtitle);
 				$("#jlidedit").val(result[0][0].joblocation);
 				$("#expedit").val(result[0][0].experience);
-				$("#lfedit").val(result[0][0].locationflexibility);
+			//	$("#lfedit").val(result[0][0].locationflexibility);
 				$("#nposedit").val(result[0][0].noofpositions);
 				$("#roleedit").val(result[0][0].role);
 				$("#jdedit").val(result[0][0].jobdescription);
@@ -1362,7 +1380,8 @@ $(document).ready(function() {
 		if (Jobrecid != "" && jobreqcode != "" && Firstname != "" && Lastname != "" && Email != "" && Mobile != ""
 			&& Experience != "" && Highestquali != "" && Currentjobtitle != "" && Currentsalary != ""
 			&& Expectedsalary != "" && Skillset != "" && Noticeperiod != "" && Currentlocation != "" && Desiredlocation != ""
-			&& Status != "" && Experience != "" && Resigned != "" && Vendorid != "" && Pjobtitle != "" && Vendorname != "") {
+			&& Status != "" && Experience != "" && Resigned != "" && Vendorid != "" && Pjobtitle != "" && Vendorname != "")
+			 {
 			$.ajax({
 				url: url,
 				type: "post",
@@ -1411,7 +1430,15 @@ $(document).ready(function() {
 						"<td >" + result[0][i].pjobtitle + "</td>" +
 						"<td >" + result[0][i].firstname + "&nbsp" + result[0][i].lastname + "</td>" +
 						"<td >" + result[0][i].skillset + "</td>" +
+						"<td >" + result[0][i].email + "</td>" +
+						"<td >" + result[0][i].mobile + "</td>" +
+						"<td >" + result[0][i].dob + "</td>" +
+						"<td >" + result[0][i].city + "</td>" +
+						"<td >" + result[0][i].currentjobtitle + "</td>" +
 						"<td >" + result[0][i].experince + "</td>" +
+						"<td >" + result[0][i].currentsalary + "</td>" +
+						"<td >" + result[0][i].expectedsalary + "</td>" +
+						"<td >" + result[0][i].noticeperiod + "</td>" +
 						"<td >" + result[0][i].status + "</td>" +
 						"<td >" + result[0][i].pvendorname + "</td>" +
 						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' style='font-size: 20px;color:black;position:relative;left:3%;'></i>" + "</a>" + "</td>" +
@@ -1802,6 +1829,12 @@ $(document).ready(function() {
 		$("#edate").val('');
 		$("#positions").val('');
 		$("#experience").val('');
+		$("#jobtitle").val('');
+		$("#reqdate").val('');
+		$("#jduration").val('');
+		$("#locflexy").val('');
+		$("#locflexn").val('');
+		$("#jstatus").val('');
 		$("#jobstatus").val('');
 		$("#piskills").val('');
 		$("#seskills").val('');
@@ -2213,8 +2246,7 @@ $(document).ready(function() {
 															<label>Status:<span style="color:red;">*</span></label>
 														</div>
 														<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-															<select id="jstatus" class="form-control" name="jstatus"
-																required></select>
+															<select id="jstatus" class="form-control" name="j_status" required></select>
 
 														</div>
 														<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
@@ -2364,7 +2396,7 @@ $(document).ready(function() {
 																				Action </th> -->
 																		</tr>
 																	</thead>
-																	<tbody id="joblistingbody" style="color:black;">
+																	<tbody id="joblistingbody" style="color:black;" class="myTableBody">
 																	</tbody>
 																</table>
 															</div>
@@ -2450,13 +2482,21 @@ $(document).ready(function() {
 															<th scope="col">Job Title</th>
 															<th scope="col">Candidate Name</th>
 															<th scope="col">Skill</th>
+															<th scope="col">Email</th>
+															<th scope="col">Mobile</th>
+															<th scope="col">Date Of Birth</th>
+															<th scope="col">City</th>
+															<th scope="col">Current Job Title</th>
+															<th scope="col">Current Salary</th>
+															<th scope="col">Expected Salary</th>
 															<th scope="col">Experience</th>
+															<th scope="col">Notice Period</th>
 															<th scope="col">Status</th>
 															<th scope="col">Vendor Id</th>
 															<!-- <th data-orderable="false" scope="col">Action</th> -->
 														</tr>
 													</thead>
-													<tbody id="profileslistingbody" style="color:black;">
+													<tbody id="profileslistingbody" style="color:black;" class="myTableBody">
 													</tbody>
 												</table>
 											</div>
@@ -2544,7 +2584,7 @@ $(document).ready(function() {
 																	<!-- <th data-orderable="false" scope="col">Action</th> -->
 																</tr>
 															</thead>
-															<tbody id="vendorlistingbody" style="color:black">
+															<tbody id="vendorlistingbody" style="color:black" class="myTableBody">
 															</tbody>
 														</table>
 													</div>
@@ -2571,8 +2611,7 @@ $(document).ready(function() {
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #73c7e7">
 						<h4 class="modal-title">Job Description</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							onclick="cancelenable()">&times;</button>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 
 					</div>
 					<div class="modal-body" style="overflow:auto;height:450px;">
@@ -2609,7 +2648,7 @@ $(document).ready(function() {
 									<label style="width: 113px;">Job Location:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="jlidedit" name="jlid_edit" class="form-control">
+									<select id="jlidedit" name="jlid_edit" class="form-control"></select>
 								</div>
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
 							</div>
@@ -2819,8 +2858,7 @@ $(document).ready(function() {
 							onclick="enablejoblist()">Edit</button> -->
 						<button type="submit" class="btn btn-sm btn-info" id="updatehide" data-dismiss="modal"
 							onclick="updatejd()">Update</button>
-						<button type="button" class="btn btn-sm btn-info" data-dismiss="modal" onclick="cancelenable()">
-							Cancel</button>
+						<button type="button" class="btn btn-sm btn-info" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -3031,8 +3069,7 @@ $(document).ready(function() {
 									<label>Notice Period:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="noticeperiod" name="pnotice_period" class="form-control"
-										required>
+									<input type="tel" id="noticeperiod" name="pnotice_period" minlength="1" maxlength="2" class="form-control" required>
 								</div>
 								<div class="col-sm-1"> </div>
 							</div>
@@ -3390,8 +3427,7 @@ $(document).ready(function() {
 									<label><span style="color:red">*</span>Notice Period:</label>
 								</div>
 								<div class="col-sm-3">
-									<input type="text" id="peditnoticeperiod" name="peditnotice_period"
-										class="form-control" required>
+									<input type="tel" id="peditnoticeperiod" name="peditnotice_period" minlength="1" maxlength="2" class="form-control" required>
 								</div>
 								<div class="col-sm-2">
 									<label style="width: 113px;"><span style="color:red">*</span>Skype ID:</label>
