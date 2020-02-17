@@ -76,13 +76,13 @@
 
 		/*CSS counters to number the steps*/
 		counter-reset: step;
+		
 	}
 
 	#progressbar li {
 		list-style-type: none;
 		color: black;
 		font-size: 12px;
-		width: 20%;
 		float: left;
 		position: relative;
 
@@ -108,13 +108,13 @@
 	/*progressbar connectors*/
 	#progressbar li:after {
 		content: '';
-		width: 81%;
-		height: 3px;
-		background: #979797;
-		position: absolute;
-		left: -62%;
-		top: 15px;
-		z-index: 0;
+    width: 76%;
+    height: 3px;
+    background: #979797;
+    position: absolute;
+    left: -75%;
+    top: 15px;
+    z-index: 0;
 		/*put it behind the numbers*/
 
 
@@ -149,8 +149,12 @@
 		border: 2px solid red;
 
 	}
+	#progressbar li.selected:before {
+		background-color: #bebebe;
+		border: 2px solid #bebebe;
 
-
+	}
+	
 	.dropdown-menu li:hover {
 		background-color: #ddd;
 	}
@@ -304,8 +308,8 @@
 			$("#lttsInterviewBtn").css("display", "none");
 			$("#customerInterviewBtn").css("display", "none");
 
-			$("#lttsScreening").removeClass("active").addClass("is-reject");
-			$("#lttsInterview").removeClass("active submitted");
+			$("#LttsScreening").removeClass("active").addClass("is-reject");
+			$("#LttsInterview").removeClass("active submitted");
 			$("#customerScreening").removeClass("active submitted");
 			$("#customerInterview").removeClass("active submitted");
 			$("#onboarded").removeClass("active submitted");
@@ -316,19 +320,20 @@
 			$("#lttsInterviewBtn").css("display", "none");
 			$("#customerInterviewBtn").css("display", "none");
 
-			$("#lttsScreening").removeClass("is-reject active").addClass("submitted");
-			$("#lttsInterview").removeClass("active is-reject submitted");
+			$("#LttsScreening").removeClass("is-reject active").addClass("submitted");
+			$("#LttsInterview").removeClass("active is-reject submitted");
 			$("#customerScreening").removeClass("active is-reject submitted");
 			$("#customerInterview").removeClass("active is-reject submitted");
 			$("#onboarded").removeClass("active is-reject submitted");
 		}
 		else if (pstatusid == "Shortlist For Ltts Interview") {
-
+console.log('lttsinterview');
 			$("#lttsInterviewBtn").css("display", "block");
 			$("#customerInterviewBtn").css("display", "none");
-
-			$("#lttsScreening").removeClass("is-reject submitted").addClass("active");
-			$("#lttsInterview").removeClass("active is-reject").addClass("submitted");
+			
+			$("#ltts:before").css("background","grey");
+			$("#LttsScreening").removeClass("is-reject submitted").addClass("active");
+			$("#LttsInterview").removeClass("active is-reject").addClass("submitted");
 			$("#customerScreening").removeClass("active is-reject submitted");
 			$("#customerInterview").removeClass("active is-reject submitted");
 			$("#onboarded").removeClass("active is-reject submitted");
@@ -339,8 +344,8 @@
 			$("#lttsInterviewBtn").css("display", "none");
 			$("#customerInterviewBtn").css("display", "none");
 
-			$("#lttsScreening").removeClass("is-reject submitted").addClass("active");
-			$("#lttsInterview").removeClass("active submitted").addClass("is-reject");
+			$("#LttsScreening").removeClass("is-reject submitted").addClass("active");
+			$("#LttsInterview").removeClass("active submitted").addClass("is-reject");
 			$("#customerScreening").removeClass("active is-reject submitted");
 			$("#customerInterview").removeClass("active is-reject submitted");
 			$("#onboarded").removeClass("active is-reject submitted");
@@ -573,7 +578,33 @@ $(document).ready(function() {
 			$("#lttsinterviewModal").modal('show');
 
 		});
-
+		$("#ltts").click(function () {
+			$("#ltts").addClass('selected');
+			$("#customer").removeClass('selected');
+			$("#onboarded").removeClass('selected');
+			$("#lttsLevel").collapse('toggle');
+			// $("#lttsLevel").collapse('show');
+			$("#customerLevel").collapse('hide');
+			$("#onboardLevel").collapse('hide');
+		});
+		$("#customer").click(function () {
+			$("#ltts").removeClass('selected');
+			$("#customer").addClass('selected');
+			$("#onboarded").removeClass('selected');
+			$("#customerLevel").collapse('toggle');
+			$("#lttsLevel").collapse('hide');
+			// $("#customerLevel").collapse('show');
+			$("#onboardLevel").collapse('hide');
+		});
+		$("#onboarded").click(function () {
+			$("#ltts").removeClass('selected');
+			$("#customer").removeClass('selected');
+			$("#onboarded").addClass('selected');
+			$("#onboardLevel").collapse('toggle');
+			$("#lttsLevel").collapse('hide');
+			$("#customerLevel").collapse('hide');
+			// $("#onboardLevel").collapse('show');
+		});
 	});
 
 
@@ -596,6 +627,27 @@ $(document).ready(function() {
 			}
 		});
 	}
+
+	function interviewtypedropdown() {
+
+		interviewtype = '';
+var url = "http://localhost:2000/interviewtype";
+$.ajax({
+	url: url,
+	type: "GET",
+	success: function (result) {
+
+		for (var i = 0; i < result[0].length; i++) {
+			interviewtype = interviewtype +
+				'<option value="' + result[0][i].interviewtypeid + '">' + result[0][i].interviewtype + '</option>';
+		}
+		$("#lttsinttype").html(interviewtype);
+		//$("#peditvendorid").html(interviewtype);
+		
+	}
+});
+}
+
 
 
 	function uploadOnChange() {
@@ -641,7 +693,7 @@ $(document).ready(function() {
 				//jobstatusdrop = jobstatusdrop+"<option>--Select--</option>";
 				for (var i = 0; i < result[0].length; i++) {
 					jobreqID = jobreqID +
-						'<option value="' + result[0][i].jobdescriptionid + '">' + result[0][i].requirmentid + '</option>';
+						'<option value="' + result[0][i].jobdescriptionid + '" >' + result[0][i].requirmentid + '</option>';
 				}
 				$("#jobrecid").html(jobreqID);
 				$("#reqiddrop").html(jobreqID);
@@ -676,8 +728,7 @@ $(document).ready(function() {
 	function editjobtitilebyreqid() {
 	
 		var reqId = $('[name="pjob_recid"]').find(":selected").val();
-
-		
+		console.log(reqId);
 		var jobtitilebyreqid = "";
 		var url = "http://localhost:2000/jobtitlebyreqid/" + reqId;
 
@@ -920,7 +971,7 @@ $(document).ready(function() {
 				$("#peditcurrentlocation").html(currentlocation);
 				$("#peditdesiredlocation").html(currentlocation);
 				$("#jlocation").html(currentlocation);
-				$("#intlocation").html(currentlocation);
+				$("#lttsintlocation").html(currentlocation);
 				$("#jloc").html(currentlocation);
 				$("#jlidedit").html(currentlocation);
 
@@ -1302,6 +1353,161 @@ console.log(result);
 		});
 
 		joblistingdetails();
+
+	}
+
+	function profileslistingdetails() {
+
+		var tableData = "";
+
+		var url = "http://localhost:2000/profileslistingdetails";
+		
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function (result) {
+				
+				for (var i = 0; i < result[0].length; i++) {
+				
+					var profileID = "\"" + result[0][i].profileid + "\"";
+					var statusId = "\"" + result[0][i].status + "\"";
+
+					tableData = tableData + "  <tr> " +
+
+						"<td >" + result[0][i].jobreqcode + "</td>" +
+						"<td >" + result[0][i].pjobtitle + "</td>" +
+						"<td >" + result[0][i].firstname + "&nbsp" + result[0][i].lastname + "</td>" +
+						"<td >" + result[0][i].skillset + "</td>" +
+						"<td >" + result[0][i].experince + "</td>" +
+						"<td >" + result[0][i].status + "</td>" +
+						// "<td >" + result[0][i].pvendorname+ "</td>" +
+						"<td >" + "<a>" + "<i class='far fa-edit' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' style='font-size: 20px;color:black;position:relative;left:3%;'></i>" + "</a>" + "</td>" +
+
+						"</tr>";
+
+				}
+
+				// $("#profileslistingbody").html(tableData);
+				$("#profiletable tbody").html(tableData);
+
+				$("#profiletable").DataTable();
+
+			}
+		});
+	}
+
+	function createlttsinterview() {
+		var interviewprofileID = $('[name="interviewprofile_hiddenId"]').val();
+		var interviewjobId = $('[name="interviewjob_hiddenId"]').val();
+		var interviewjobcode = $('[name="interview_reqid"]').val();
+		var interviewjobtitle = $('[name="lttsjob_title"]').val();
+		var candidatename = $('[name="lttscand_name"]').val();
+		var interviewername = $('[name="lttsint_name"]').val();
+		var interviewtypeId = $('[name="lttsint_type"]').val();
+		var interviewtypetext = $('[name="lttsint_type"]').text();
+		var interviewdatetime = $('[name="lttsint_time"]').val();
+		var interviewlocation = $('[name="lttsint_location"]').val();
+		var createdby = 'Admin';
+		// var createdate = $('[name="cust_edit"]').val();
+		var updateby = 'Admin';
+		//  var updatetime = $('[name="bucomments"]').val();
+
+
+
+		var data = {
+			"candidatename": candidatename,
+			"interviewRole": interviewRole,
+			"interviewername": interviewername,
+			"interviewtype": interviewtype,
+			"interviewdatetime": interviewdatetime,
+			"interviewlocation": interviewlocation,
+			"createdby": createdby,
+			"updateby": updateby
+
+		}
+
+		data = JSON.stringify(data);
+		var url = "http://localhost:2000/jdescription";
+
+		// if(Requirement!="" && Role!="" && Position!=""&& Expected!=""&& Exp!=""&& PSkill!=""&& SSkill!=""&& locationflex!=""&& customerid!=""
+		// && Status!=""&& buid!=""&& salesregionid!=""&& joblocation!=""&& jDescription!="")
+		//   {
+		$.ajax({
+			url: url,
+			type: "post",
+			async: false,
+			data: data,
+			contentType: "application/json",
+			dataType: "json",
+			success: function (result) {
+
+				$('#successmodal').modal('show');
+				clearFormJob();
+
+			},
+			error: function () {
+
+			}
+		});
+
+		// }
+	}
+
+
+	function profilesdisplay(i) {
+		// $("#updateeditprofile").hide();
+		var url = "http://localhost:2000/profilelisting/" + i;
+
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function (result) {
+	console.log(result);
+	  if(result[0][0].Resignation=='Y'){
+		$("#editresignedy").prop('checked', true);
+		
+	  }
+	  else if(result[0][0].Resignation=='N'){
+		$("#editresignedn").prop('checked', true);
+
+	  }
+				$("#editprofilehiddenId").text(result[0][0].profileid);
+				$("#pprofileid").text(result[0][0].profileid);
+				$("#peditjobrecid").text(result[0][0].jobreqcode);
+				$("#peditfirstname").val(result[0][0].firstname);
+				$("#peditlastname").val(result[0][0].lastname);
+				$("#peditemail").val(result[0][0].email);
+				$("#peditmobile").val(result[0][0].mobile);
+				$("#peditdob").val(result[0][0].dob.slice(0, 10));
+				$("#peditcity").val(result[0][0].city);
+				$("#peditstate").val(result[0][0].stateid).attr('selected', 'selected');
+				$("#peditcountry").val(result[0][0].countryid).attr('selected', 'selected');
+				$("#peditexperience").val(result[0][0].experince);
+				$("#pedithighestquali").val(result[0][0].highestqualificationid).attr('selected', 'selected');
+				$("#peditcurrentjobtitle").val(result[0][0].currentjobtitle);
+				$("#peditcurrentsalary").val(result[0][0].currentsalary);
+				$("#peditexpectedsalary").val(result[0][0].expectedsalary);
+				$("#peditskillset").val(result[0][0].skillset);
+				$("#peditskypeid").val(result[0][0].skypeid);
+				$("#peditnoticeperiod").val(result[0][0].noticeperiod);
+				$("#peditcurrentlocation").val(result[0][0].currentlocationid).attr('selected', 'selected');
+				$("#peditdesiredlocation").val(result[0][0].desiredlocationid).attr('selected', 'selected');
+				$("#peditstatus").val(result[0][0].statusid).attr('selected', 'selected');
+				$("#peditvendorid").val(result[0][0].vendorid);
+				$("#peditfilename").val(result[0][0].resumename);
+				$("#peditjobtitle").text(result[0][0].pjobtitle)
+				$("#seditskillset").val(result[0][0].psecondaryskill);
+				$("#peditjobtitle").text(result[0][0].pjobtitle);
+// lttsinterviewfields
+				$("#profileinterviewhiddenId").text(result[0][0].profileid);
+				$("#jobinterviewhiddenId").text(result[0][0].jobrecid);
+				$("#interviewreqid").val(result[0][0].jobreqcode);
+				$("#lttscandname").val(result[0][0].firstname +" " + result[0][0].lastname);
+				$("#lttsjobtitle").val(result[0][0].pjobtitle);
+			}
+
+
+		});
 
 	}
 
@@ -2887,7 +3093,7 @@ console.log(result);
 									<label style="width: 125px;">Job Requirement ID:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
-									<select  class="js-example-basic-single form-control" id="jobrecid" name="pjob_recid" onclick="editjobtitilebyreqid()" >
+									<select  class="js-example-basic-single form-control" onchange="editjobtitilebyreqid()" id="jobrecid" name="pjob_recid">
 										
 									  </select>
 									
@@ -3214,27 +3420,60 @@ console.log(result);
 									<h4 style="margin-left:2%;font-size: 15px;font-weight: bold;">Profile Status:</h4>
 								</div>
 								<div class="col-sm-3">
-									<button type="button" id="lttsInterviewBtn" style="display: none;">Schedule Ltts
-										Interview</button>
+									<button type="button" id="lttsInterviewBtn" onclick="interviewtypedropdown()"
+										style="display: none;">Schedule Ltts Interview</button>
 									<button type="button" id="customerInterviewBtn" style="display: none;">Schedule
 										Customer Interview</button>
 								</div>
 							</div>
-							<hr style="width: 100%;top: -9px;position: relative;">
+							
 
 
 							<div class="row">
 								<div class="container">
 									<ul id="progressbar">
-										<li id="lttsScreening" class="active">Ltts Screening</li>
-										<li id="lttsInterview">Ltts Interview</li>
-										<li id="customerScreening">Customer Screening</li>
-										<li id="customerInterview">Customer Interview</li>
+										<li id="ltts">Ltts</li>
+										<li id="customer">Customer</li>
 										<li id="onboarded">On-boarded</li>
 									</ul>
 								</div>
-							</div><br>
-
+							
+							<div class="collapse" id="lttsLevel">
+								<div class="mt-3">
+									<div class="container">
+										<ul id="progressbar">
+											<li id="LttsScreening" class="">Screening</li>
+											<li id="LttsInterview" class="">Interview</li>
+																						
+										</ul>
+									</div>
+								</div>
+							  </div>
+							  <div class="collapse" id="customerLevel">
+								<div class="mt-3">
+									<div class="container">
+										<ul id="progressbar">
+											<li id="customerScreening" >Screening</li>
+											<li id="customerInterview">Interview</li>
+																						
+										</ul>
+									</div>
+								</div>
+							  </div>
+							  <div class="collapse" id="onboardLevel">
+								<div class="mt-3">
+									<div class="container">
+										<ul id="progressbar">
+											<li>Screening</li>
+											<li>Interview</li>
+																						
+										</ul>
+									</div>
+								</div>
+							  </div>
+							</div>
+							<br>
+							<hr style="width: 100%;top: -9px;position: relative;">
 							<div class="row">
 								<h4 style="margin-left:2%;font-size: 15px;font-weight: bold;">Basic Information:</h4>
 							</div>
@@ -3895,54 +4134,79 @@ console.log(result);
 
 		<!--Ltts Interview Modal -->
 
-		<div class="modal fade" id="lttsinterviewModal" role="dialog" style="margin-top: 20%;">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header" style="background-color: #73c7e7">
-						<h5 class="modal-title">Interview Details</h5>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+<div class="modal fade" id="lttsinterviewModal" role="dialog" style="margin-top: 20%;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #73c7e7">
+				<h5 class="modal-title">Interview Details</h5>
+				<button type="button" class="close" data-dismiss="modal"
+							>&times;</button>
+			</div>
+			<div class="modal-body" style="height:238px;">
+				<form action="post" onsubmit="return false">
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-2">
+							<p id="profileinterviewhiddenId" name="interviewprofile_hiddenId" style="display:none;"></p>
+							<p id="jobinterviewhiddenId" name="interviewjob_hiddenId" style="display:none;"></p>
+							<label style="width: 113px;"><span style="color:red">*</span>Requirment I'd:</label>
+						</div>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="interviewreqid" name="interview_reqid"
+								class="form-control" required>
+						</div>
+						<div class="col-sm-2">
+							<label style="width: 113px;"><span style="color:red">*</span>Job title:</label>
+						</div>
+						<div class="col-sm-3">
+							<input type="text" id="lttsjobtitle" name="lttsjob_title" class="form-control" required>
+						</div>
+						<div class="col-sm-1"></div>
 					</div>
-					<div class="modal-body" style="height:238px;">
-						<form action="post" onsubmit="return false">
-
-							<div class="row">
-								<div class="col-sm-1"></div>
-								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Candidate Name:</label>
-								</div>
-								<div class="col-sm-3">
-									<input type="text" class="form-control" id="lttscandname" name="lttscand_name"
-										class="form-control" required>
-								</div>
-								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Job Role:</label>
-								</div>
-								<div class="col-sm-3">
-									<input type="text" id="lttsjobrole" name="lttsjob_role" class="form-control"
-										required>
-								</div>
-								<div class="col-sm-1"></div>
-							</div>
-							<div class="row">
-								<div class="col-sm-1"></div>
-								<div class="col-sm-2">
-									<label style="width: 113px;"><span style="color:red">*</span>Interviewer
-										Name:</label>
-								</div>
-								<div class="col-sm-3">
-									<input type="text" class="form-control" id="lttsintname" name="lttsint_name"
-										class="form-control" required>
-								</div>
-								<div class="col-sm-2">
-									<label><span style="color:red">*</span>Interview Type:</label>
-								</div>
-								<div class="col-sm-3">
-									<select id="lttsinttype" name="lttsint_type" class="form-control" required></select>
-								</div>
-								<div class="col-sm-1"></div>
-							</div>
-							<div class="row">
-								<div class="col-sm-1"></div>
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-2">
+							<p id="profileinterviewhiddenId" name="editprofile_hiddenId" style="display:none;"></p>
+							<label style="width: 113px;"><span style="color:red">*</span>Candidate Name:</label>
+						</div>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="lttscandname" name="lttscand_name"
+								class="form-control" required>
+						</div>
+						<div class="col-sm-2">
+							<label style="width: 113px;"><span style="color:red">*</span>Interviewer Name:</label>
+						</div>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="lttsintname" name="lttsint_name"
+								class="form-control" required>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>					
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-2">
+							<label style="width: 137px;left: 5%;position: absolute;"><span style="color:red">*</span>Interview Date & Time:</label>
+						</div>
+						<div class="col-sm-3">
+							<input type="datetime-local" id="lttsinttime" name="lttsint_time" class="form-control"
+							required>
+						</div>
+						<div class="col-sm-2">
+							<label><span style="color:red">*</span>Interview Type:</label>
+						</div>
+						<div class="col-sm-3">
+							<select id="lttsinttype" name="lttsint_type" class="form-control"
+								required></select>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-2">
+							<label style="width: 113px;"><span style="color:red">*</span>Intrview Location:</label>
+						</div>
+						<div class="col-sm-3">
 
 								<div class="col-sm-2">
 									<label style="width: 113px;"><span style="color:red">*</span>Interview Date &

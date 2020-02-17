@@ -10,6 +10,16 @@ module.exports = {
         });
 
     },
+    getinterviewtype: (req, res) => {
+        let query = "CALL `proclookupinterviewtype`()";
+        db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.status(200).json(result);
+
+        });
+    },
     getJobStatusdrop: (req, res) => {
 
         let query = "CALL proclookupstatus()"; // query database to get all the status

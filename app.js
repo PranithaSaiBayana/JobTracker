@@ -10,9 +10,10 @@ app.use(bodyParser.urlencoded({
 })); 
 app.use(bodyParser.json());
 
-const {getHomePage,getJobStatusdrop,getbusinessunit,getexpdropdown,getsalesregionunit,getsalesrepunit,getcustomers,addjd,joblistingdetails,
-    joblisting,updatejoblisting,getcurrentlocation,getsalutation,gethighestqual,getprofilestatus,getprofilecountry,getprofilestatebycountry,
-    addprofile,profilelistingdetails,profilelisting,updateprofile,addvendor,vendorlistingdetails,vendorlisting,updatevendor,getjobreqID,jobstatusnew,getvendornamedropdown,getprofilejobtitlebyreqId,getprofilevendordropdown} = require('./routes/index');
+const {getHomePage,getJobStatusdrop,getbusinessunit,getexpdropdown,getsalesregionunit,getsalesrepunit,getcustomers,addjd,
+joblistingdetails,joblisting,updatejoblisting,getcurrentlocation,getsalutation,gethighestqual,getprofilestatus,getprofilecountry,
+getprofilestatebycountry,addprofile,profilelistingdetails,profilelisting,updateprofile,addvendor,vendorlistingdetails,vendorlisting,
+updatevendor,getjobreqID,jobstatusnew,getvendornamedropdown,getprofilejobtitlebyreqId,getprofilevendordropdown,getinterviewtype} = require('./routes/index');
 const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage,} = require('./routes/player');
 
 const port = 2000;
@@ -90,7 +91,7 @@ app.get('/jobtitlebyreqid/:reqId', getprofilejobtitlebyreqId);
 
 app.get('/jobstatusnew', jobstatusnew);
 app.get('/vendornamedropdown', getvendornamedropdown);
-
+app.get('/interviewtype', getinterviewtype);
 // set the app to listen on the port
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
