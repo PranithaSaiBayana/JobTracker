@@ -465,14 +465,25 @@ $(document).ready(function() {
 
 	function profilefilterText() {
 		var profiledrp = new RegExp($('#reqiddrop').children("option:selected").text());
-		var profilejdtitledrp = new RegExp($('#profilejlocation').children("option:selected").text());
+		//var profilejdtitledrp = new RegExp($('#profilejlocation').children("option:selected").text());
 		$('.content').hide();
 		$('.content').filter(function () {
 			return profiledrp.test($(this).text());
-			return profilejdtitledrp.test($(this).text());
+	//	return profilejdtitledrp.test($(this).text());
 
 		}).show();
 	}
+	function vendorfilterText() {
+		var vendordrp = new RegExp($('#vratingdrop').children("option:selected").text());
+		
+		$('.content').hide();
+		$('.content').filter(function () {
+			return vendordrp.test($(this).text());
+			
+
+		}).show();
+	}
+	
 
 	function ExportToExcel(tableid) {
 	
@@ -605,6 +616,15 @@ $(document).ready(function() {
 			$("#customerLevel").collapse('hide');
 			// $("#onboardLevel").collapse('show');
 		});
+
+		//double click function for modal
+
+		// $("#joblistingbody").dblclick(function(){
+			
+		// 	console.log("working");
+		// 	$("#jobModal").modal('show');
+		// });
+
 	});
 
 
@@ -728,10 +748,11 @@ $.ajax({
 	function editjobtitilebyreqid() {
 	
 		var reqId = $('[name="pjob_recid"]').find(":selected").val();
-		console.log(reqId);
+		console.log(reqId);		
 		var jobtitilebyreqid = "";
+		
 		var url = "http://localhost:2000/jobtitlebyreqid/" + reqId;
-
+console.log(url);
 		$.ajax({
 			url: url,
 			type: "GET",
@@ -1198,37 +1219,38 @@ $.ajax({
 				}
 
 
-				if (result[0][0].Locationflex == 'Y') {
+				if (result[0][0].locationflexibility == 'Y') {
 					$("#lfedity").prop('checked', true);
 
 				}
-				else if (result[0][0].Locationflex == 'N') {
+				else if (result[0][0].locationflexibility == 'N') {
 					$("#lfeditn").prop('checked', true);
 				}
 
 				$("#jdiddisplayhidden").text(result[0][0].jobdescriptionid);
 				$("#reqiddisplay").text(result[0][0].requirmentid);
 				$("#jobtitleedit").val(result[0][0].jdtitle);
-				$("#jlidedit").val(result[0][0].joblocation);
-				$("#expedit").val(result[0][0].experience);
-			//	$("#lfedit").val(result[0][0].locationflexibility);
-				$("#nposedit").val(result[0][0].noofpositions);
-				$("#roleedit").val(result[0][0].role);
-				$("#jdedit").val(result[0][0].jobdescription);
-				$("#custedit").val(result[0][0].customers).attr('selected', 'selected');
-				$("#buedit").val(result[0][0].bussinessunit).attr('selected', 'selected');
-				$("#sregionedit").val(result[0][0].salesregions).attr('selected', 'selected');
-				$("#srepedit").val(result[0][0].salesrep).attr('selected', 'selected');
-				$("#jdurationedit").val(result[0][0].duration);
-				$("#jstatusedit").val(result[0][0].jobstatus).attr('selected', 'selected');
-				$("#datereqedit").val(result[0][0].dateofreq.slice(0, 10));
-				$("#closedateedit").val(result[0][0].closedate.slice(0, 10));
+				$("#techleveledit").val(result[0][0].customers).attr('selected', 'selected');
+				$("#jlidedit").val(result[0][0].joblocationid).attr('selected', 'selected');
 				$("#psedit").val(result[0][0].primaryskills);
 				$("#ssedit").val(result[0][0].secondaryskills);
+				$("#nposedit").val(result[0][0].noofpositions);
+				$("#roleedit").val(result[0][0].role);
+				$("#jdurationedit").val(result[0][0].duration);
+				$("#jstatusedit").val(result[0][0].jobstatusid).attr('selected', 'selected');
+				$("#datereqedit").val(result[0][0].dateofreq.slice(0, 10));
+				$("#closedateedit").val(result[0][0].closedate.slice(0, 10));
+				$("#expedit").val(result[0][0].experience);
+				$("#buedit").val(result[0][0].bussinessunitid).attr('selected', 'selected');
+				$("#sregionedit").val(result[0][0].salesregionsid).attr('selected', 'selected');
+				$("#srepedit").val(result[0][0].salesrepid).attr('selected', 'selected');
+				$("#custedit").val(result[0][0].customersid).attr('selected', 'selected');
 				$("#cbyedit").val(result[0][0].createdby);
 				$("#ubyedit").val(result[0][0].updateby);
 				$("#cbydateedit").val(result[0][0].createddate.slice(0, 10));
 				$("#ubydateedit").val(result[0][0].updatedtime.slice(0, 10));
+			//	$("#lfedit").val(result[0][0].locationflexibility);
+				$("#jdedit").val(result[0][0].jobdescription);					
 				$("#jdcomment").val(result[0][0].jdcomments);
 				$("#bucomment").val(result[0][0].bucomments);
 
@@ -1263,7 +1285,7 @@ $.ajax({
 		$("#custedit").attr('disabled', false);
 		$("#jdcomment").attr('disabled', false);
 		$("#bucomment").attr('disabled', false);
-		$("#roleleveledit").attr('disabled', false);
+		$("#techleveledit").attr('disabled', false);
 		$("#jdurationedit").attr('disabled', false);
 		$("#reqclosedateedit").attr('disabled', false);
 		$("#jstatusedit").attr('disabled', false);
@@ -1278,7 +1300,8 @@ $.ajax({
 		$("#updatehide").show();
 		var jobdescriptionId = $('[name="jdiddisplay_hidden"]').text();
 		var reqid = $('[name="reqid_display"]').text();
-		var joblocation = $('[name="jlid_edit"]').val();
+		var joblocationid = $('[name="jlid_edit"]').val();
+		var joblocation = $("#jlidedit option:selected").text();
 		var experience = $('[name="exp_edit"]').val();
 		var dateofreq = $('[name="datereq_edit"]').val();
 		var closedate = $('[name="closedate_edit"]').val();
@@ -1303,6 +1326,7 @@ $.ajax({
 
 			"jobdescriptionId": jobdescriptionId,
 			"reqid": reqid,
+			"joblocationid": joblocationid,
 			"joblocation": joblocation,
 			"experince": experience,
 			"dateofreq": dateofreq,
@@ -1532,6 +1556,7 @@ $.ajax({
 		var Psecondskill = $('[name="sskill_set"]').val();
 		var Resigned = $('input[name=resigned]:checked').val();
 		var Vendorname = $("#profilevendorid option:selected").text();
+
 		var data = {
 
 			//"Profileid": Profileid,
@@ -1567,8 +1592,12 @@ $.ajax({
 		}
 
 		data = JSON.stringify(data);
+		console.log(data);
 
 		var url = "http://localhost:2000/addprofiles";
+
+		console.log(url);
+
 
 		if (Jobrecid != "" && jobreqcode != "" && Firstname != "" && Lastname != "" && Email != "" && Mobile != ""
 			&& Experience != "" && Highestquali != "" && Currentjobtitle != "" && Currentsalary != ""
@@ -1584,6 +1613,7 @@ $.ajax({
 				dataType: "json",
 				success: function (result) {
 
+console.log(result);
 					$('#profilesmodal').modal('hide');
 					$('#successmodal').modal('show');
 					clearFormProfile();
@@ -1617,12 +1647,19 @@ $.ajax({
 					var profileID = "\"" + result[0][i].profileid + "\"";
 					var statusId = "\"" + result[0][i].status + "\"";
 
+					if (result[0][i].psecondaryskill == "undefined") {
+					console.log(result[0][i].psecondaryskill);
+					result[0][i].psecondaryskill = ""
+				}
+
+
 					tableData = tableData + "  <tr class='content' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' > " +
 
 						"<td >" + result[0][i].jobreqcode + "</td>" +
 						"<td >" + result[0][i].pjobtitle + "</td>" +
 						"<td >" + result[0][i].firstname + "&nbsp" + result[0][i].lastname + "</td>" +
 						"<td >" + result[0][i].skillset + "</td>" +
+						"<td >" + result[0][i].psecondaryskill + "</td>" +
 						"<td >" + result[0][i].email + "</td>" +
 						"<td >" + result[0][i].mobile + "</td>" +
 						"<td >" + result[0][i].dob + "</td>" +
@@ -1634,6 +1671,10 @@ $.ajax({
 						"<td >" + result[0][i].noticeperiod + "</td>" +
 						"<td >" + result[0][i].status + "</td>" +
 						"<td >" + result[0][i].pvendorname + "</td>" +
+						"<td >" + result[0][i].createdby + "</td>" +
+						"<td >" + result[0][i].createddate + "</td>" +
+						"<td >" + result[0][i].updatedby + "</td>" +
+						"<td >" + result[0][i].updateddate + "</td>" +
 						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#profileEditModal' data-toggle='modal' data-backdrop='static' data-keyboard='false'  onclick=' statuschange(" + statusId + "),profilesdisplay(" + profileID + ")' style='font-size: 20px;color:black;position:relative;left:3%;'></i>" + "</a>" + "</td>" +
 
 						"</tr>";
@@ -1659,6 +1700,13 @@ $.ajax({
 			type: "GET",
 			success: function (result) {
 
+
+				if (result[0][0].psecondaryskill == "undefined") {
+					console.log(result[0][0].psecondaryskill);
+					result[0][0].psecondaryskill = ""
+				}
+
+
 				if (result[0][0].Resignation == 'Y') {
 					$("#editresignedy").prop('checked', true);
 
@@ -1666,6 +1714,8 @@ $.ajax({
 				else if (result[0][0].Resignation == 'N') {
 					$("#editresignedn").prop('checked', true);
 				}
+
+				console.log(result);
 				$("#editprofilehiddenId").text(result[0][0].profileid);
 				$("#pprofileid").text(result[0][0].profileid);
 				$("#peditjobrecid").text(result[0][0].jobreqcode);
@@ -1718,6 +1768,7 @@ $.ajax({
 		var peditexpectedsalary = $('[name="peditexpected_salary"]').val();
 		//	var peditresigned = $('[name="editresigned"]').val();
 		var peditskillset = $('[name="peditskill_set"]').val();
+		var seditskillset = $('[name="seditskill_set"]').val();
 		var peditskypeid = $('[name="peditskype_id"]').val();
 		var peditnoticeperiod = $('[name="peditnotice_period"]').val();
 		var peditcurrentlocation = $('[name="peditcurrent_location"]').val();
@@ -1747,6 +1798,7 @@ $.ajax({
 			"peditcurrentsalary": peditcurrentsalary,
 			"peditexpectedsalary": peditexpectedsalary,
 			"peditskillset": peditskillset,
+			"seditskillset": seditskillset,
 			"peditskypeid": peditskypeid,
 			"peditnoticeperiod": peditnoticeperiod,
 			"peditcurrentlocation": peditcurrentlocation,
@@ -1761,9 +1813,11 @@ $.ajax({
 		}
 
 		data = JSON.stringify(data);
+		console.log(data);
 
 		url = "http://localhost:2000/updateprofile/" + peditprofileId,
 
+console.log(url);
 
 			$.ajax({
 				url: url,
@@ -1773,6 +1827,7 @@ $.ajax({
 				contentType: "application/json",
 				dataType: "json",
 				success: function (result) {
+					console.log(result);
 
 				},
 				error: function () {
@@ -1890,13 +1945,20 @@ $.ajax({
 
 					var Vendorid = "\"" + result[0][i].vendorid + "\"";
 
-					tableData = tableData + "  <tr class='content'> " +
+					tableData = tableData + "  <tr class='content' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")' > " +
 
-						"<td >" + result[0][i].recruiterid + "</td>" +
 						"<td >" + result[0][i].vendorcode + "</td>" +
 						"<td >" + result[0][i].vendorname + "</td>" +
-						"<td >" + result[0][i].recruitername + "</td>" +
+						"<td >" + result[0][i].vendorspecification + "</td>" +
 						"<td >" + result[0][i].vendoremail + "</td>" +
+						"<td >" + result[0][i].recruiterid + "</td>" +
+						"<td >" + result[0][i].recruitername + "</td>" +
+						"<td >" + result[0][i].recruitercontactno + "</td>" +
+						"<td >" + result[0][i].createdby + "</td>" +
+						"<td >" + result[0][i].createddate + "</td>" +
+						"<td >" + result[0][i].updatedby + "</td>" +
+						"<td >" + result[0][i].updateddate + "</td>" +
+						// "<td >" + result[0][i].vendorrating + "</td>" +
 
 						 "<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
 						"</tr>";
@@ -2669,18 +2731,23 @@ $.ajax({
 																	class="down"></i></th>
 															<th scope="col">Job Title</th>
 															<th scope="col">Candidate Name</th>
-															<th scope="col">Skill</th>
+															<th scope="col">Primary Skill</th>
+															<th scope="col">Secondary Skill</th>
 															<th scope="col">Email</th>
 															<th scope="col">Mobile</th>
 															<th scope="col">Date Of Birth</th>
 															<th scope="col">City</th>
 															<th scope="col">Current Job Title</th>
+															<th scope="col">Experience</th>
 															<th scope="col">Current Salary</th>
 															<th scope="col">Expected Salary</th>
-															<th scope="col">Experience</th>
 															<th scope="col">Notice Period</th>
 															<th scope="col">Status</th>
 															<th scope="col">Vendor Id</th>
+															<th scope="col">Created By</th>
+															<th scope="col">Created Date</th>
+															<th scope="col">Updated By</th>
+															<th scope="col">Updated Date</th>
 															<!-- <th data-orderable="false" scope="col">Action</th> -->
 														</tr>
 													</thead>
@@ -2763,13 +2830,19 @@ $.ajax({
 															<thead
 																style="font-weight: bold;background-color: rgb(51, 122, 183);position: relative;top: 0px;color: rgb(255, 255, 255); white-space: nowrap;">
 																<tr style="font-weight:bold;">
-																	<th scope="col">Recruiter Id</th>
 																	<th scope="col">Vendor Id</th>
 																	<th scope="col">Vendor Name</th>
-																	<th scope="col">Recruiter Name</th>
-																	<!-- <th scope="col">Rating</th>  -->
+																	<th scope="col">Vendor Specification</th>
 																	<th scope="col">Vendor Email</th>
-																	 <th data-orderable="false" scope="col">Action</th> 
+																	<th scope="col">Recruiter Id</th>
+																	<th scope="col">Recruiter Name</th>
+																	<th scope="col">Recruiter Contact Number</th>
+																	<th scope="col">Created By</th>
+																	<th scope="col">Created Date</th>
+																	<th scope="col">Updated By</th>
+																	<th scope="col">Updated Date</th>
+																	<!-- <th scope="col">Rating</th>  -->
+																	<!-- <th data-orderable="false" scope="col">Action</th> -->
 																</tr>
 															</thead>
 															<tbody id="vendorlistingbody" style="color:black" class="myTableBody">
@@ -2914,7 +2987,7 @@ $.ajax({
 								<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 									<label>Tech Level:<span style="color:red;">*</span></label></div>
 								<div class=" col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-									<select id="roleleveledit" class="form-control" name="role_leveledit">
+									<select id="techleveledit" name="tech_leveledit" class="form-control">
 										<option value="">Tech 1</option>
 										<option value="">Tech 2</option>
 										<option value="">Tech 3</option>
@@ -2977,7 +3050,7 @@ $.ajax({
 									<label>Status:<span style="color:red;">*</span></label>
 								</div>
 								<div class="  col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-									<select id="jstatusedit" class="form-control" name="jstatus_edit">
+									<select id="jstatusedit" name="jstatus_edit" class="form-control">
 									</select>
 								</div>
 								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></div>
@@ -3163,7 +3236,7 @@ $.ajax({
 									<label style="width: 125px;">Job Requirement ID:<span style="color:red">*</span></label>
 								</div>
 								<div class="col-sm-3">
-									<select  class="js-example-basic-single form-control" onchange="editjobtitilebyreqid()" id="jobrecid" name="pjob_recid">
+									<select  class="js-example-basic-single form-control" id="jobrecid" name="pjob_recid" onchange="editjobtitilebyreqid()" >
 										
 									  </select>
 									
@@ -3990,8 +4063,7 @@ $.ajax({
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #73c7e7">
 						<h5 class="modal-title">Vendor Description</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							onclick="cancelenablevendor()">&times;</button>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body" style="overflow:auto;height:347px;">
 						<form action="" method="">
@@ -4099,8 +4171,7 @@ $.ajax({
 									onclick="enablevendorlist()" data-toggle="modal">Edit</button> -->
 								<button type="Submit" class="btn btn-sm btn-info" id="updatevendor"
 									onclick="updatevendorbyid()" data-dismiss="modal">update</button>
-								<button type="button" class="btn btn-sm btn-info" onclick="cancelenablevendor()"
-									data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-sm btn-info" data-dismiss="modal">Cancel</button>
 
 							</div>
 						</form>
