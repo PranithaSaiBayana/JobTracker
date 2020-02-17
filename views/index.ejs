@@ -1831,7 +1831,6 @@ console.log(result);
 	}
 
 	function addvendor() {
-
 		var Vendorid = $('[name="vendor_id"]').val();
 		var Vendorname = $('[name="vendor_name"]').val();
 		var Vendorpriloc = $('[name="vendor_priloc"]').val();
@@ -1840,15 +1839,12 @@ console.log(result);
 		var Recruiterid = $('[name="recruiter_id"]').val();
 		var Recruitername = $('[name="recruiter_name"]').val();
 		var Recruitercontno = $('[name="recruiter_contno"]').val();
-		var VendorratingId = $('[name="vendor_rating"]').val();
-		var Vendorrating = $('[name="vendor_rating"]').find(":selected").text();
 		var Vendorcomments = $('[name="vendor_comments"]').val();
 		var Createdby = 'Admin';
 		var Updateby = 'Admin';
+		var isactive='Y';
 
 		var data = {
-
-
 			"Vendorid": Vendorid,
 			"Vendorname": Vendorname,
 			"Vendorpriloc": Vendorpriloc,
@@ -1857,20 +1853,17 @@ console.log(result);
 			"Recruiterid": Recruiterid,
 			"Recruitername": Recruitername,
 			"Recruitercontno": Recruitercontno,
-			"VendorratingId": VendorratingId,
-			"Vendorrating": Vendorrating,
 			"Vendorcomments": Vendorcomments,
 			"Createdby": Createdby,
-			"Updateby": Updateby
-
+			"Updateby": Updateby,
+			"isactive": isactive
 		}
 
 		data = JSON.stringify(data);
 
 		var url = "http://localhost:2000/addvendor";
 
-		if (Vendorid != "" && Vendorname != "" && Vendorpriloc != "" && Vendorspec != "" && Vendoremail != "" && Recruiterid != "" && Recruitername != "" && Recruitercontno != "" && Vendorrating != "") {
-
+		 if (Vendorid != "" && Vendorname != "" && Vendorpriloc != "" && Vendorspec != "" && Vendoremail != "" && Recruiterid != "" && Recruitername != "" && Recruitercontno != "") {
 
 			$.ajax({
 				url: url,
@@ -1880,13 +1873,14 @@ console.log(result);
 				contentType: "application/json",
 				dataType: "json",
 				success: function (result) {
-
+			
 					$('#vendormodal').modal('hide');
 					$('#successmodal').modal('show');
 					clearFormVendor();
 
 				},
 				error: function () {
+				
 				}
 			});
 
@@ -1915,7 +1909,6 @@ console.log(result);
 						"<td >" + result[0][i].vendorcode + "</td>" +
 						"<td >" + result[0][i].vendorname + "</td>" +
 						"<td >" + result[0][i].recruitername + "</td>" +
-						// "<td >" + result[0][i].vendorrating + "</td>" +
 						"<td >" + result[0][i].vendoremail + "</td>" +
 
 						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
@@ -1949,7 +1942,7 @@ console.log(result);
 				$("#editrecruitername").val(result[0][0].recruitername);
 				$("#editrecruitercontno").val(result[0][0].recruitercontactno);
 				$("#editvendorcomments").val(result[0][0].vendorcomments);
-				$("#editvendorrating").val(result[0][0].vendorrating);
+				
 
 			}
 
@@ -1985,8 +1978,6 @@ console.log(result);
 		var Recruiterid = $('[name="editrecruiter_id"]').val();
 		var Recruitername = $('[name="editrecruiter_name"]').val();
 		var Recruitercontno = $('[name="editrecruiter_contno"]').val();
-		var VendorratingId = $('[name="editvendor_rating"]').val();
-		var Vendorrating = $('[name="editvendor_rating"]').find(":selected").text();
 		var Vendorcomments = $('[name="editvendor_comments"]').val();
 		var Updateby = 'Admin';
 
@@ -2000,8 +1991,6 @@ console.log(result);
 			"Recruiterid": Recruiterid,
 			"Recruitername": Recruitername,
 			"Recruitercontno": Recruitercontno,
-			"VendorratingId": VendorratingId,
-			"Vendorrating": Vendorrating,
 			"Vendorcomments": Vendorcomments,
 			"Updateby": Updateby
 		}
@@ -2194,9 +2183,9 @@ console.log(result);
 							<li><a href="#" data-target="#vendorsTab" data-toggle="tab" id="vendortabid"
 									style="font-size: 20px;color: #73c7e7;font-weight: 900;padding: 0 32px;"
 									onclick="vendorlistingdetails()">Vendors</a></li>
-							<li class=""><a href="#" data-toggle="tab" href="/interviewTab"
-									style="font-size: 20px;color: #73c7e7;font-weight: 900;display:none;">Interviews</a>
-							</li>
+							<!-- <li class=""><a href="#" data-target="#interviewsTab" data-toggle="tab" id="interviewtabid"
+									style="font-size: 20px;color: #73c7e7;font-weight: 900;">Interviews</a>
+							</li> -->
 
 						</ul>
 
@@ -2804,6 +2793,94 @@ console.log(result);
 
 							</div>
 						</div>
+
+
+						<!-- <div id="interviewsTab" class="tab-pane fade">
+							<div class="container" style="background-color: white;height: 600px;">
+
+								<div class="row" style="background-color: #65bddfc7; height: 56px;">
+
+									<div class="col-sm-11" style="margin-top: 9px;">
+										<h5>Interviews</h5>
+									</div>
+									<div class="col-sm-1" style="margin-top: 2px;">
+										<button type="button" data-toggle="modal" data-target="#interviewmodal" class="btn"
+											style="margin-top: 9px;">New</button></div>
+
+								</div>
+
+								<br>
+						<div id="interviewlisting" class="">
+
+							<div id="main-container" class="list-view contact"
+								style="box-shadow:none;border:none;">
+								<div class="col-sm-1"></div>
+
+								<div id="main-content" class="contact">
+
+									<div
+										style="background-color:  #73c7e726;border: 1px solid #e3e3e3;height: 52px;">
+										<div class="row" style="color: black;font-size: 13px;top: 12px;position: relative;">
+
+											<div class="col-sm-2" style="left: 1%;">
+												<button type="button" data-toggle="modal" data-target="#interviewmodal" 
+												class="btn" style="background-color: #87cbe5;top: -13%;position: relative;"> Interview</button></div>
+											
+											<div class="col-sm-1"><button type="button" data-toggle="modal" data-target="#interviewmodal" 
+												class="btn" style="background-color: #87cbe5;top: -13%;position: relative;"> Interview</button></div>
+											<div class="col-sm-3"></div>
+											<div class="col-sm-2" style="left:25%;">
+												<a href="#" onClick="$('#interviewtable').tableExport({type:'excel',escape:'false'});">
+													<img src="/assets/img/export-to-excel-image.png" style="height: 28px;width:24px;">
+												</a>
+											</div>
+
+										</div>
+									</div>
+									<br>
+
+								</div>
+
+
+								<div id="main-content" class="">
+
+									<div id="tbMarksContainer">
+
+										<div class="entity-list" id="entity-list">
+
+											<div class="table table-responsive"
+												style="overflow: auto;height:400px;">
+
+												<table id="interviewtable" class="display dataTable table-bordered"
+													style="width:104%;color: black;">
+													<thead
+														style="font-weight: bold;background-color: rgb(51, 122, 183);position: relative;top: 0px;color: rgb(255, 255, 255); white-space: nowrap;">
+														<tr style="font-weight:bold;">
+															<th scope="col"></th>
+															<th scope="col"></th>
+															<th scope="col"></th>
+															<th scope="col"></th>
+															 <th scope="col">Rating</th> 
+															<th scope="col"></th>
+															<th data-orderable="false" scope="col">Action</th>
+														</tr>
+													</thead>
+													<tbody id="interviewlistingbody" style="color:black">
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								
+							</div>
+
+						</div>
+
+					</div>
+				</div> -->
+
 					</div>
 				</div>
 			</div>

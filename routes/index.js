@@ -393,17 +393,15 @@ console.log(result);
         let Recruitername = req.body.Recruitername;
         let Recruitercontno = req.body.Recruitercontno;
         let Vendorcomments = req.body.Vendorcomments;
-        let VendorratingId = req.body.VendorratingId;
-        let Vendorrating = req.body.Vendorrating;
+
         let Createdby = req.body.Createdby;
         let Updateby = req.body.Updateby;
+        let isactive=req.body.isactive;
 
 
         let query = "call procinsertvendor('" + Vendorcode + "', '" + Vendorname + "', '" + Vendorpriloc + "','" + Vendorspec + "','" +
-            Vendoremail + "', '" + Recruiterid + "','" + Recruitername + "', '" + Recruitercontno + "','" + Vendorcomments + "', '" + VendorratingId + "', '" 
-            + Vendorrating + "','" + Createdby + "',now(),'" + Updateby + "',now())";
-
-
+            Vendoremail + "', '" + Recruiterid + "','" + Recruitername + "', '" + Recruitercontno + "','" 
+            + Vendorcomments + "','" + Createdby + "',now(),'" + Updateby + "',now(),'" + isactive + "')";
         db.query(query, (err, result) => {
             if (err) {
                 
@@ -463,15 +461,13 @@ console.log(result);
         let Recruiterid = req.body.Recruiterid;
         let Recruitername = req.body.Recruitername;
         let Recruitercontno = req.body.Recruitercontno;
-        let VendorratingId = req.body.VendorratingId;
-        let Vendorrating = req.body.Vendorrating;
         let Vendorcomments = req.body.Vendorcomments;
         let Updateby = req.body.Updateby;
        
        
         let query = "CALL procUpdatevendor('" + vendorid + "','" + Vendorcode + "','" + Vendorname + "','" + Vendorpriloc +
             "','" + Vendorspec + "','" + Vendoremail + "','" + Recruiterid + "','" + Recruitername + "','" + Recruitercontno +
-            "','" + Vendorcomments + "','" + VendorratingId + "','" + Vendorrating + "','" + Updateby + "', now() )";
+            "','" + Vendorcomments + "','" + Updateby + "', now() )";
      
 
             db.query(query, (err, result) => {
