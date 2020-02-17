@@ -1038,8 +1038,8 @@ $.ajax({
 						'<option value="' + result[0][i].vendorid + '">' + result[0][i].vendorname + '</option>';
 				}
 				$("#vratingdrop").html(vendorratingdrop);
-				$("#vendorrating").html(vendorratingdrop);
-				$("#editvendorrating").html(vendorratingdrop);
+			//	$("#vendorrating").html(vendorratingdrop);
+				//$("#editvendorrating").html(vendorratingdrop);
 			}
 		});
 
@@ -1048,9 +1048,6 @@ $.ajax({
 
 
 	function addjd() {
-
-		console.log("working");
-
 		var Requirement = $('[name="Requirementid"]').val();
 		var Role = $('[name="role"]').val();
 		var rolelevel = $('[name="role_level"]').val();
@@ -1109,9 +1106,7 @@ $.ajax({
 		}
 
 		data = JSON.stringify(data);
-		console.log(data);
 		var url = "http://localhost:2000/jdescription";
-console.log(url);
 		
 	if(Requirement!="" && Role!="" && rolelevel!="" && jobtitle!="" && Position!="" && closedate!="" && dateofreq!="" &&
 		 jdduration!="" && Exp!=""&& PSkill!=""&& SSkill!=""&& locationflex!=""&& customerid!=""&& jdstatus!=""&& 
@@ -1125,13 +1120,10 @@ console.log(url);
 			contentType: "application/json",
 			dataType: "json",
 			success: function (result) {
-console.log(result);
 				$('#successmodal').modal('show');
 				
-
 			},
 			error: function () {
-console.log("jd");
 			}
 
 			
@@ -1213,7 +1205,7 @@ console.log("jd");
 				else if (result[0][0].Locationflex == 'N') {
 					$("#lfeditn").prop('checked', true);
 				}
-console.log(result);
+
 				$("#jdiddisplayhidden").text(result[0][0].jobdescriptionid);
 				$("#reqiddisplay").text(result[0][0].requirmentid);
 				$("#jobtitleedit").val(result[0][0].jdtitle);
@@ -1250,7 +1242,6 @@ console.log(result);
 
 		$("#updatehide").show();
 		// $("#edithide").hide();
-
 		$("#jlidedit").attr('disabled', false);
 		$("#expedit").attr('disabled', false);
 		$("#lfedit").attr('disabled', false);
@@ -1285,7 +1276,6 @@ console.log(result);
 
 		// $("#edithide").show();
 		$("#updatehide").show();
-
 		var jobdescriptionId = $('[name="jdiddisplay_hidden"]').text();
 		var reqid = $('[name="reqid_display"]').text();
 		var joblocation = $('[name="jlid_edit"]').val();
@@ -1462,7 +1452,6 @@ console.log(result);
 			url: url,
 			type: "GET",
 			success: function (result) {
-	console.log(result);
 	  if(result[0][0].Resignation=='Y'){
 		$("#editresignedy").prop('checked', true);
 		
@@ -1571,8 +1560,6 @@ console.log(result);
 			"Vendorid": Vendorid,
 			"Createdby": Createdby,
 			"Updateby": Updateby,
-			// "Evaluationdate": Evaluationdate,
-			// "Panel": Panel,
 			"Pjobtitle": Pjobtitle,
 			"Psecondskill": Psecondskill,
 			"Resigned": Resigned,
@@ -1864,7 +1851,7 @@ console.log(result);
 		var url = "http://localhost:2000/addvendor";
 
 		 if (Vendorid != "" && Vendorname != "" && Vendorpriloc != "" && Vendorspec != "" && Vendoremail != "" && Recruiterid != "" && Recruitername != "" && Recruitercontno != "") {
-
+			
 			$.ajax({
 				url: url,
 				type: "post",
@@ -1911,7 +1898,7 @@ console.log(result);
 						"<td >" + result[0][i].recruitername + "</td>" +
 						"<td >" + result[0][i].vendoremail + "</td>" +
 
-						// "<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
+						 "<td >" + "<a>" + "<i class='far fa-edit' data-target='#vendoreditmodal' data-toggle='modal' data-backdrop='static' data-keyboard='false' onclick='vendordisplay(" + Vendorid + ")'  style='font-size: 20px;color:black;position:relative;left:37%;'></i>" + "</a>" + "</td>" +
 						"</tr>";
 
 				}
@@ -1962,7 +1949,7 @@ console.log(result);
 		$("#editrecruitername").attr('disabled', false);
 		$("#editrecruitercontno").attr('disabled', false);
 		$("#editvendorcomments").attr('disabled', false);
-		$("#editvendorrating").attr('disabled', false);
+	//	$("#editvendorrating").attr('disabled', false);
 
 	}
 
@@ -1980,6 +1967,9 @@ console.log(result);
 		var Recruitercontno = $('[name="editrecruiter_contno"]').val();
 		var Vendorcomments = $('[name="editvendor_comments"]').val();
 		var Updateby = 'Admin';
+		var Createdby='Admin';
+		var isactive='Y'
+		
 
 		var data = {
 			"vendorid": vendorid,
@@ -1992,10 +1982,13 @@ console.log(result);
 			"Recruitername": Recruitername,
 			"Recruitercontno": Recruitercontno,
 			"Vendorcomments": Vendorcomments,
-			"Updateby": Updateby
+			"Updateby": Updateby,
+			"Createdby":Createdby,
+			"isactive":isactive
 		}
 		data = JSON.stringify(data);
 		var url = "http://localhost:2000/updatevendor/" + vendorid;
+	
 		$.ajax({
 			url: url,
 			type: "post",
@@ -2085,7 +2078,7 @@ console.log(result);
 		$("#recruiterid").val('');
 		$("#recruitername").val('');
 		$("#recruitercontno").val('');
-		$("#vendorrating").val('');
+	//	$("#vendorrating").val('');
 		$("#vendorcomments").val('');
 
 	}
@@ -2776,7 +2769,7 @@ console.log(result);
 																	<th scope="col">Recruiter Name</th>
 																	<!-- <th scope="col">Rating</th>  -->
 																	<th scope="col">Vendor Email</th>
-																	<!-- <th data-orderable="false" scope="col">Action</th> -->
+																	 <th data-orderable="false" scope="col">Action</th> 
 																</tr>
 															</thead>
 															<tbody id="vendorlistingbody" style="color:black" class="myTableBody">

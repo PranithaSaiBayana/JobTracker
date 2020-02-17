@@ -451,7 +451,7 @@ console.log(result);
     },
    
     updatevendor: (req, res) => {
-       
+        console.log("in update vendor");
         let vendorid = req.body.vendorid;
         let Vendorcode = req.body.Vendorcode;
         let Vendorname = req.body.Vendorname;
@@ -463,19 +463,21 @@ console.log(result);
         let Recruitercontno = req.body.Recruitercontno;
         let Vendorcomments = req.body.Vendorcomments;
         let Updateby = req.body.Updateby;
-       
+        let Createdby = req.body.Createdby;
+        let isactive=req.body.isactive;
        
         let query = "CALL procUpdatevendor('" + vendorid + "','" + Vendorcode + "','" + Vendorname + "','" + Vendorpriloc +
             "','" + Vendorspec + "','" + Vendoremail + "','" + Recruiterid + "','" + Recruitername + "','" + Recruitercontno +
-            "','" + Vendorcomments + "','" + Updateby + "', now() )";
+            "','" + Vendorcomments + "','" + Createdby + "',now(),'" + Updateby + "', now(),'" + isactive + "' )";
      
-
+console.log(query);
             db.query(query, (err, result) => {
             if (err) {
-                
+                console.log(err);
                 return res.status(500).send(err);
             }
             res.status(200).json(result);
+            console.log(result);
         });
     },
 
